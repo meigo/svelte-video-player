@@ -1,0 +1,21 @@
+{
+  "name": "svelte-video-player",
+  "version": "1.0.0",
+  "author": "Meigo Kukk",
+  "repository": "meigo/svelte-video-player",
+  "description": "",
+  "homepage": "https://github.com/meigo/svelte-video-player",
+  "license": "MIT",
+  "svelte": "src/index.js",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "svelte",
+    "video",
+    "player"
+  ],
+  "files": [
+    "src"
+  ]
+}
