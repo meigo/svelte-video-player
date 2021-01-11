@@ -4,7 +4,7 @@
 
 # Svelte Video Player
 
-Basic video player component.
+Basic video player component for svelte apps.
 
 ## DEMO
 
