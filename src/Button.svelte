@@ -2,7 +2,6 @@
   import { createEventDispatcher } from "svelte";
   import { getContext } from "svelte";
 
-  export let tabbable = true;
   export let round = false;
 
   const dispatch = createEventDispatcher();
@@ -11,9 +10,11 @@
 
   let offsetHeight;
 
+  function onPointerDown(e) {
+    e.preventDefault(); // Prevent focus on pointerdown
+  }
+
   function onPointerUp(e) {
-    e.preventDefault();
-    e.stopPropagation();
     dispatch("pointerup");
   }
 
@@ -52,8 +53,9 @@
 <div
   class="player-button"
   style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{$cfg.color}; border-color:{$cfg.focusColor}; border-radius:{round ? '9999px' : '10px'};"
-  tabindex={tabbable ? '0' : '-1'}
+  tabindex="0"
   bind:offsetHeight
+  on:pointerdown={onPointerDown}
   on:pointerup={onPointerUp}
   on:keydown={onKeydown}>
   <slot />

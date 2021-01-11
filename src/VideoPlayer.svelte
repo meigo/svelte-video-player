@@ -111,15 +111,14 @@
   //-------------------------------------------------------------------------------------------------------------------
 
   let isVideoData = false;
-  let isTouchDevice = false;
   let isPointerOverVideo = false;
-  let isPlayerPointerDown = false;
   let isPointerOverControls = false;
   let isBuffering = false;
   let isFullscreenEnabled = false;
   let isFullscreen = false;
   let isIdle = false;
   let isScrolling = false;
+  let isScrubbing = false;
   let isKeyDown = false;
 
   $: isPosterVisible = !isVideoData || (paused && currentTime == 0);
@@ -129,15 +128,9 @@
 
   $: isSpinnerVisible = seeking || isBuffering;
 
-  $: isCenterIconVisibile = !isVideoData || (paused && !isPlayerPointerDown);
+  $: isCenterIconVisibile = !isVideoData || (paused && !isScrubbing);
 
   $: _playerBgColor = isVideoData ? "transparent" : playerBgColor;
-
-  //-------------------------------------------------------------------------------------------------------------------
-
-  function onTouchStartOnce(e) {
-    isTouchDevice = true;
-  }
 
   //-------------------------------------------------------------------------------------------------------------------
 
@@ -155,15 +148,10 @@
     isPointerOverVideo = false;
   }
 
-  function onPlayerPointerDown(e) {
-    isPlayerPointerDown = true;
-  }
-
   function onPlayerPointerUp(e) {
     if (!isPointerOverControls && !isScrolling) {
       paused = !paused;
     }
-    isPlayerPointerDown = false;
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -222,15 +210,11 @@
     isFullscreen = !isFullscreen;
   }
 
-  //-------------------------------------------------------------------------------------------------------------------
-
   function onPlaybarPointerUp(e) {
     if (videoElement != currentVideo) paused = false;
   }
 
   function onPlayPauseButtonPointerUp(e) {
-    e.preventDefault();
-    e.stopPropagation();
     paused = !paused;
   }
 
@@ -262,6 +246,9 @@
     padding-top: 100%; /* default 1:1 */
     overflow: hidden;
     border-radius: 8px;
+    /* Safari overflow:hidden fix */
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: -webkit-radial-gradient(white, black);
   }
 
   .aspect > :first-child {
@@ -299,10 +286,7 @@
 
 <!-------------------------------------------------------------------------------------------------------------------->
 
-<svelte:window
-  on:touchstart|once={onTouchStartOnce}
-  on:keydown={onWindowKeyDown}
-  on:keyup={onWindowKeyUp} />
+<svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
 
 <div
   class="aspect"
@@ -318,7 +302,6 @@
       bind:this={videoPlayerElement}
       on:pointerover={onPlayerPointerOver}
       on:pointerout={onPlayerPointerOut}
-      on:pointerdown={onPlayerPointerDown}
       on:pointerup={onPlayerPointerUp}>
       <video
         {width}
@@ -358,6 +341,7 @@
             {played}
             bind:currentTime
             bind:paused
+            bind:isScrubbing
             on:pointerup={onPlaybarPointerUp} />
           <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
           <VolumeControl bind:volume />

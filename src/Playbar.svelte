@@ -12,6 +12,7 @@
   export let buffered = [];
   export let played = [];
   export let paused;
+  export let isScrubbing;
 
   const dispatch = createEventDispatcher();
 
@@ -43,6 +44,7 @@
 
   function onPointerMove(e) {
     if (!isPointerDown) return;
+    isScrubbing = true;
     pointerXToCurrentTime(e.clientX);
   }
 
@@ -50,6 +52,7 @@
     if (!isPointerDown) return;
     paused = wasPaused;
     isPointerDown = false;
+    isScrubbing = false;
     dispatch("pointerup");
   }
 
