@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Meigo Kukk",
   "repository": "meigo/svelte-video-player",
-  "description": "",
+  "description": "Basic video player component for svelte apps.",
   "homepage": "https://github.com/meigo/svelte-video-player",
   "license": "MIT",
   "svelte": "src/index.js",
