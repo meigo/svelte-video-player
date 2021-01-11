@@ -2,9 +2,13 @@
   <img src="./svp.svg" alt="svp" width="250" alt="SVP logo" />
 </div>
 
-## Svelte Video Player
+# Svelte Video Player
 
 Basic video player component.
+
+## DEMO
+
+https://svelte-video-player.netlify.app/
 
 ## Installation
 
