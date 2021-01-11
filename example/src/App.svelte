@@ -1,6 +1,6 @@
 <script>
-	// import VideoPlayer from "../../src";
-	import VideoPlayer from "svelte-video-player";
+	import VideoPlayer from "../../src";
+	// import VideoPlayer from "svelte-video-player";
 
 	const poster =
 		"https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif";
