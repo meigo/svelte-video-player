@@ -8,7 +8,9 @@
   "license": "MIT",
   "svelte": "src/index.js",
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "throttle-debounce": "^3.0.1"
+  },
   "devDependencies": {},
   "keywords": [
     "svelte",
