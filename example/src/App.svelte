@@ -19,7 +19,7 @@
 	const source3 =
 		"https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443015/nqios9pxpltgfktccebr.mp4";
 
-	const poster_kaka = "./kaka_walk2.jpg";
+	const poster_kaka = "./kaka_walk.jpg";
 	const source_kaka = ["./kaka_walk.mp4"];
 
 	let controlsHeight = 60;
@@ -84,7 +84,7 @@
 
 	.config label {
 		display: block;
-		min-height: 1.6rem;
+		min-height: 35px;
 		width: 9rem;
 	}
 
@@ -122,11 +122,14 @@
 	}
 
 	@media (min-width: 640px) {
+		.config label {
+			min-height: 28px;
+		}
+
 		.config-grid {
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr 1fr;
-			/* gap: 10px 0px; */
 		}
 
 		.config-video-player-grid {
@@ -153,11 +156,11 @@
 </style>
 
 <svelte:head>
-	<title>Slayer Test</title>
-	<meta name="title" content="Slayer Test app" />
-	<meta name="Description" content="Svelte Video player test app" />
+	<title>Svelte Video Player Demo</title>
+	<meta name="title" content="Svelte Video Player Demo" />
+	<meta name="Description" content="Svelte Video player demo app." />
 	<meta name="msapplication-TileColor" content="#da532c" />
-	<meta name="theme-color" content="#ffffff" />
+	<meta name="theme-color" content="#fbf3e6" />
 </svelte:head>
 
 <main>

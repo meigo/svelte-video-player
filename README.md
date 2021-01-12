@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="./svp.svg" alt="svp" width="250" alt="SVP logo" />
+  <img src="./svp.svg" alt="svp" width="200" alt="SVP logo" />
 </div>
 
 # Svelte Video Player
 
 Basic video player component for svelte apps.
 
-## DEMO
+## Demo
 
 https://svelte-video-player.netlify.app/
 
