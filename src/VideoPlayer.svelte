@@ -159,7 +159,6 @@
         if (!isBottomControlsVisible) {
           e.stopPropagation();
           e.preventDefault();
-          focusFirstControl();
           isBottomControlsVisible = true;
         }
         break;
@@ -191,12 +190,6 @@
     const a = 3.0;
     if (back) currentVideo.currentTime = t > a ? t - a : 0;
     else currentVideo.currentTime = t + a < d ? t + a : d - 0.2;
-  }
-
-  function focusFirstControl() {
-    videoPlayerElement
-      .getElementsByClassName("controls")[0]
-      .firstChild.focus({ preventScroll: true });
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -279,7 +272,7 @@
   {:then}
     <div
       id="video-player-{uid()}"
-      tabindex="0"
+      tabindex={isVideoData ? '0' : '-1'}
       bind:this={videoPlayerElement}
       on:pointerover={onPlayerPointerOver}
       on:pointerout={onPlayerPointerOut}

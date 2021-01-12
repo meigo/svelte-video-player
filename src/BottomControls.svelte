@@ -6,12 +6,25 @@
 
   const cfg = getContext("config");
 
+  let lastFocusElement;
+  let wasTabDown;
+
   function onPointerOver(e) {
     isPointerOver = true;
   }
 
   function onPointerOut(e) {
     isPointerOver = false;
+  }
+
+  function onTransitionEnd(e) {
+    if (e.propertyName == "visibility") {
+      if (!hidden && wasTabDown) {
+        lastFocusElement.focus({ preventScroll: true }); // Restore focus when controls opened by tab press
+      } else {
+        lastFocusElement = document.activeElement;
+      }
+    }
   }
 </script>
 
@@ -37,11 +50,16 @@
   }
 </style>
 
+<svelte:window
+  on:pointermove={() => (wasTabDown = false)}
+  on:keydown={(e) => (wasTabDown = e.code === 'Tab')} />
+
 <div
   class:hidden
   class="controls"
   style="height:{$cfg.controlsHeight}; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.2) 80%);"
   on:pointerover={onPointerOver}
-  on:pointerout={onPointerOut}>
+  on:pointerout={onPointerOut}
+  on:transitionend={onTransitionEnd}>
   <slot />
 </div>

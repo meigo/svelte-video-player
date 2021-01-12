@@ -32,9 +32,11 @@ https://svelte-video-player.netlify.app/
 
 ```bash
 yarn add svelte-video-player
+```
 
 or
 
+```bash
 npm install svelte-video-player
 ```
 
@@ -72,7 +74,7 @@ Real size of video player will be determined by it's parent element.
 <VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
 ```
 
-```js
+```html
 <script>
   import VideoPlayer from 'svelte-video-player';
 
