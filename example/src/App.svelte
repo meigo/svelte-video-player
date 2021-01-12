@@ -288,13 +288,8 @@
 		productions, he maintains that such forms are now spontaneously generated.
 	</p>
 	<div class="video-player-grid">
-		<VideoPlayer
-			poster={poster2}
-			source={source2}
-			{playerBgColor}
-			width="960"
-			height="540" />
-		<VideoPlayer {poster} {source} {playerBgColor} width="960" height="540" />
+		<VideoPlayer poster={poster2} source={source2} {playerBgColor} />
+		<VideoPlayer {poster} {source} {playerBgColor} />
 	</div>
 	<p>
 		(I have taken the date of the first publication of Lamarck from Isidore

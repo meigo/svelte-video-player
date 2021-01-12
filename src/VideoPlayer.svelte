@@ -2,7 +2,7 @@
   let currentVideo;
 
   function onPlay(e) {
-    if (currentVideo && currentVideo !== e.target) currentVideo.pause(); // Pause previous video player
+    if (currentVideo && currentVideo !== e.target) currentVideo.pause(); // Pause previous video
     currentVideo = e.target;
   }
 </script>
