@@ -50,9 +50,11 @@
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
-		font-size: 4rem;
+		font-size: 3rem;
 		font-weight: 100;
 		text-align: center;
+		line-height: 90%;
+		padding-bottom: 1rem;
 	}
 
 	p {
@@ -166,6 +168,14 @@
 <main>
 	<img class="center" src="./svp.svg" height="50" alt="SVP logo" />
 	<h1>Examples</h1>
+
+	<a href="https://npmjs.org/package/svelte-video-player">
+		<img
+			class="center"
+			src="https://badgen.net/npm/v/svelte-video-player"
+			alt="version" />
+	</a>
+
 	<p>
 		I will here give a brief sketch of the progress of opinion on the Origin of
 		Species. Until recently the great majority of naturalists believed that
