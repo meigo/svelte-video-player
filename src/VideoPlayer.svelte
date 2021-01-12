@@ -10,9 +10,11 @@
 <script>
   import { setContext } from "svelte";
   import { writable } from "svelte/store";
-  import { extensionToMimeType, uid, preloadImage } from "./utils.js";
+  import { uid, preloadImage, prepareVideoSources } from "./utils.js";
 
-  import CenterControls from "./CenterControls.svelte";
+  import Poster from "./Poster.svelte";
+  import Controls from "./Controls.svelte";
+  import CenterIcons from "./CenterIcons.svelte";
   import BottomControls from "./BottomControls.svelte";
   import Playbar from "./Playbar.svelte";
   import PlayPauseButton from "./PlayPauseButton.svelte";
@@ -25,6 +27,8 @@
   import Spinner from "./Spinner.svelte";
   import BufferingDetector from "./BufferingDetector.svelte";
 
+  //-------------------------------------------------------------------------------------------------------------------
+  // PROPS
   //-------------------------------------------------------------------------------------------------------------------
 
   export let width = 1920;
@@ -44,6 +48,15 @@
   export let chunkBars = false;
   export let loop = false;
 
+  $: _width = parseInt(width);
+  $: _height = parseInt(height);
+  $: _aspectRatio = _height / _width;
+  $: _sources = prepareVideoSources(source);
+
+  //-------------------------------------------------------------------------------------------------------------------
+  // REACTIVE CONFIG CONTEXT
+  //-------------------------------------------------------------------------------------------------------------------
+
   const config = writable({});
   setContext("config", config);
 
@@ -61,29 +74,7 @@
   $: $config.loop = loop;
 
   //-------------------------------------------------------------------------------------------------------------------
-
-  let _sources;
-
-  $: {
-    if (!source) {
-      _sources = [];
-    } else if (source instanceof Array) {
-      _sources = source
-        .map((item) => {
-          const type = extensionToMimeType(item);
-          if (type) return { src: item, type };
-        })
-        .filter((item) => item);
-    } else {
-      const type = extensionToMimeType(source);
-      _sources = [{ src: source, type }];
-    }
-  }
-
-  $: _width = parseInt(width);
-  $: _height = parseInt(height);
-  $: _aspectRatio = _height / _width;
-
+  // VIDEO ELEMENT BINDINGS
   //-------------------------------------------------------------------------------------------------------------------
 
   let videoPlayerElement;
@@ -109,6 +100,8 @@
   }
 
   //-------------------------------------------------------------------------------------------------------------------
+  // APP STATE FLAGS
+  //-------------------------------------------------------------------------------------------------------------------
 
   let isVideoData = false;
   let isPointerOverVideo = false;
@@ -132,6 +125,8 @@
 
   $: _playerBgColor = isVideoData ? "transparent" : playerBgColor;
 
+  //-------------------------------------------------------------------------------------------------------------------
+  // EVENT HANDLERS
   //-------------------------------------------------------------------------------------------------------------------
 
   function onVideoLoadedData(e) {
@@ -233,7 +228,9 @@
   }
 </script>
 
-<!-------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------
+ STYLE
+ --------------------------------------------------------------------------------------------------------------------->
 <style>
   :global(video::-webkit-media-controls) {
     display: none !important; /* Hide fullscreen native controls */
@@ -264,27 +261,11 @@
     width: 100%;
     height: 100%;
   }
-
-  .poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .overlay {
-    z-index: 2147483647;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
 </style>
 
-<!-------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------
+ MARKUP
+ --------------------------------------------------------------------------------------------------------------------->
 
 <svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
 
@@ -293,7 +274,7 @@
   style="padding-top:{_aspectRatio * 100}%; background-color:{_playerBgColor};">
   {#await preloadImage(poster)}
     <div>
-      <Spinner visible={true} color={iconColor} size="60px" />
+      <Spinner color={iconColor} size="60px" />
     </div>
   {:then}
     <div
@@ -327,12 +308,12 @@
       </video>
 
       {#if isPosterVisible}
-        <img {width} {height} class="poster" src={poster} alt="poster" />
+        <Poster src={poster} />
       {/if}
 
-      <div class="overlay">
+      <Controls>
         <BottomControls
-          visible={isBottomControlsVisible}
+          hidden={!isBottomControlsVisible}
           bind:isPointerOver={isPointerOverControls}>
           <PlayPauseButton on:pointerup={onPlayPauseButtonPointerUp} {paused} />
           <Playbar
@@ -351,12 +332,12 @@
               {isFullscreen} />
           {/if}
         </BottomControls>
-        <CenterControls
+        <CenterIcons
           isIconVisible={isCenterIconVisibile}
           {isSpinnerVisible}
           {isBuffering}
           on:togglePause={togglePause} />
-      </div>
+      </Controls>
     </div>
   {:catch error}
     <p style="color: red">{error.message}</p>

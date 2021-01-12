@@ -2,7 +2,6 @@
   import { getContext } from "svelte";
 
   export let size = "100%";
-  export let visible = true;
   export let filled = false;
   export let paused;
 
@@ -10,14 +9,12 @@
 </script>
 
 <style>
-  .container {
+  .play-pause-icon {
     position: absolute;
   }
 </style>
 
-<div
-  class="container"
-  style="width:{size}; display:{visible ? 'block' : 'none'};">
+<div class="play-pause-icon" style="width:{size};">
   <svg
     viewBox="0 0 100 100"
     width="100%"

@@ -1,6 +1,5 @@
 <script>
   import { getContext } from "svelte";
-  import { fade } from "svelte/transition";
 
   import PlayIconCenter from "./PlayIconCenter.svelte";
   import Spinner from "./Spinner.svelte";
@@ -29,9 +28,9 @@
   class="center-icons"
   style="width:{$cfg.centerIconSize}; height:{$cfg.centerIconSize};"
   bind:offsetWidth>
-  <PlayIconCenter visible={isIconVisible} />
+  <PlayIconCenter hidden={!isIconVisible} />
   <Spinner
-    visible={isSpinnerVisible}
+    hidden={!isSpinnerVisible}
     color={isBuffering ? $cfg.color : $cfg.iconColor}
     size="{offsetWidth + 10}px" />
 </div>

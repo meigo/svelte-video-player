@@ -6,6 +6,24 @@ export function extensionToMimeType(filename) {
   return;
 }
 
+export function prepareVideoSources(source) {
+  let sources;
+  if (!source) {
+    sources = [];
+  } else if (source instanceof Array) {
+    sources = source
+      .map((item) => {
+        const type = extensionToMimeType(item);
+        if (type) return { src: item, type };
+      })
+      .filter((item) => item);
+  } else {
+    const type = extensionToMimeType(source);
+    sources = [{ src: source, type }];
+  }
+  return sources;
+}
+
 export function uid() {
   var firstPart = (Math.random() * 46656) | 0;
   var secondPart = (Math.random() * 46656) | 0;

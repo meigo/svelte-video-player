@@ -1,6 +1,5 @@
 <script>
 	import VideoPlayer from "../../src";
-	// import VideoPlayer from "svelte-video-player";
 
 	const poster =
 		"https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif";
@@ -20,7 +19,7 @@
 	const source3 =
 		"https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443015/nqios9pxpltgfktccebr.mp4";
 
-	const poster_kaka = "./kaka_walk.jpg";
+	const poster_kaka = "./kaka_walk2.jpg";
 	const source_kaka = ["./kaka_walk.mp4"];
 
 	let controlsHeight = 60;

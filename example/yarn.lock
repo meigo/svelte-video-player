@@ -725,11 +725,6 @@ svelte-preprocess@^4.6.1:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte-video-player@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/svelte-video-player/-/svelte-video-player-1.0.0.tgz#65285fa7ee16d2bfb8e761408eb1bfeb56d15a29"
-  integrity sha512-DOP4ztXhomjgp8aEzgN7jflm3k/MRLRMo36XmeL9vIlx5JvWD25u4KBfM7Y1Vkh2zI0G4kExbFh8n4pj3g/A2A==
-
 svelte@^3.31.2:
   version "3.31.2"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.31.2.tgz#d2ddf6cacbb95e4cc3796207510b660a25586324"

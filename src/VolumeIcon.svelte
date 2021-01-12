@@ -2,7 +2,6 @@
   import { getContext } from "svelte";
 
   export let size = "100%";
-  export let visible = true;
   export let filled = true;
   export let muted;
 
@@ -10,14 +9,12 @@
 </script>
 
 <style>
-  .container {
+  .volume-icon {
     position: absolute;
   }
 </style>
 
-<div
-  class="container"
-  style="width:{size}; display:{visible ? 'block' : 'none'};">
+<div class="volume-icon" style="width:{size};">
   <svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
     <g fill="none" stroke={$cfg.iconColor} stroke-width="5">
       <path

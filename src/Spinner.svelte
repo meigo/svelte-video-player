@@ -1,13 +1,11 @@
 <script>
   export let size = "60px";
   export let color = "#FFF";
-  export let visible;
-
-  $: hidden = !visible;
+  export let hidden = false;
 </script>
 
 <style>
-  .container {
+  .spinner {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -46,7 +44,7 @@
   }
 </style>
 
-<div class:hidden class="container" style="width:{size}; height:{size};">
+<div class:hidden class="spinner" style="width:{size}; height:{size};">
   <div class="circle bg" style="border-color:{color};" />
   <div
     class="circle rotating"

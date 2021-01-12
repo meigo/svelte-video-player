@@ -2,21 +2,18 @@
   import { getContext } from "svelte";
 
   export let size = "100%";
-  export let visible = true;
   export let isFullscreen;
 
   const cfg = getContext("config");
 </script>
 
 <style>
-  .container {
+  .fullscreen-icon {
     position: absolute;
   }
 </style>
 
-<div
-  class="container"
-  style="width:{size}; display:{visible ? 'block' : 'none'};">
+<div class="fullscreen-icon" style="width:{size};">
   <svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
     <g fill="none" stroke={$cfg.iconColor} stroke-width="5">
       <g visibility={!isFullscreen ? 'visible' : 'hidden'}>

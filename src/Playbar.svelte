@@ -22,14 +22,20 @@
   let isPointerDown;
   let rect;
   let wasPaused;
+  let _buffered;
+  let _played;
 
-  $: _buffered = buffered.map((item) => {
-    return { start: item.start / duration, end: item.end / duration };
-  });
+  $: {
+    if ($cfg.chunkBars) {
+      _buffered = buffered.map((item) => {
+        return { start: item.start / duration, end: item.end / duration };
+      });
 
-  $: _played = played.map((item) => {
-    return { start: item.start / duration, end: item.end / duration };
-  });
+      _played = played.map((item) => {
+        return { start: item.start / duration, end: item.end / duration };
+      });
+    }
+  }
 
   $: _currentTimePercentage = currentTime / duration;
 

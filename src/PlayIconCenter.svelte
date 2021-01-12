@@ -2,11 +2,9 @@
   import { getContext } from "svelte";
   import PlayPauseIcon from "./PlayPauseIcon.svelte";
 
-  export let visible;
+  export let hidden;
 
   const cfg = getContext("config");
-
-  $: hidden = !visible;
 </script>
 
 <style>

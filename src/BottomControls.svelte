@@ -1,12 +1,10 @@
 <script>
   import { getContext } from "svelte";
 
-  export let visible;
+  export let hidden;
   export let isPointerOver;
 
   const cfg = getContext("config");
-
-  $: hidden = !visible;
 
   function onPointerOver(e) {
     isPointerOver = true;

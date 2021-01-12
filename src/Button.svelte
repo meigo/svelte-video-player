@@ -32,7 +32,7 @@
 </script>
 
 <style>
-  .player-button {
+  .button {
     box-sizing: border-box;
     position: relative;
     height: 100%;
@@ -44,14 +44,14 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .player-button:focus {
+    .button:focus {
       border-style: solid;
     }
   }
 </style>
 
 <div
-  class="player-button"
+  class="button"
   style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{$cfg.color}; border-color:{$cfg.focusColor}; border-radius:{round ? '9999px' : '10px'};"
   tabindex="0"
   bind:offsetHeight
