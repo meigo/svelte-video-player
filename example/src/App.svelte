@@ -255,7 +255,8 @@
 		shadowed forth, but how little Aristotle fully comprehended the principle,
 		is shown by his remarks on the formation of the teeth.), the first author
 		who in modern times has treated it in a scientific spirit was Buffon.
-		<span class="video-player-inline"><VideoPlayer
+		<span class="video-player-inline">
+			<VideoPlayer
 				width="540"
 				height="540"
 				{playerBgColor}
