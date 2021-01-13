@@ -1,31 +1,30 @@
 <script>
+  import debounce from "./libs/debounce.js";
   import { onDestroy } from "svelte";
 
   export let isScrolling = false;
 
-  let reset;
   let timeout;
-  const interval = setInterval(checkScroll, 100);
 
-  function checkScroll() {
-    if (reset) {
-      isScrolling = true;
-      reset = false;
+  function onScroll(e) {
+    isScrolling = true;
+    setScrollEndTimeout();
+  }
+
+  const setScrollEndTimeout = debounce(
+    () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         isScrolling = false;
       }, 100);
-    }
-  }
-
-  function onWindowScroll(e) {
-    reset = true;
-  }
+    },
+    100,
+    true
+  );
 
   onDestroy(() => {
     clearTimeout(timeout);
-    clearInterval(interval);
   });
 </script>
 
-<svelte:window on:scroll={onWindowScroll} />
+<svelte:window on:scroll={onScroll} />

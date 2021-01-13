@@ -313,6 +313,7 @@
             {duration}
             {buffered}
             {played}
+            {isBottomControlsVisible}
             bind:currentTime
             bind:paused
             bind:isScrubbing

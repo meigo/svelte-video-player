@@ -1,4 +1,5 @@
 <script>
+  import throttle from "./libs/throttle";
   import { createEventDispatcher } from "svelte";
   import { getContext } from "svelte";
 
@@ -6,6 +7,7 @@
   import Chunkbar from "./Chunkbar.svelte";
   import Thumb from "./Thumb.svelte";
 
+  export let isBottomControlsVisible;
   export let marginX = "10px";
   export let currentTime = 0;
   export let duration = 0;
@@ -24,9 +26,35 @@
   let wasPaused;
   let _buffered;
   let _played;
+  let _currentTimePercentage;
 
   $: {
-    if ($cfg.chunkBars) {
+    if (isBottomControlsVisible && $cfg.chunkBars) {
+      updateChunkBarsThrottled(currentTime); // Optimize with throttle
+    }
+  }
+
+  $: {
+    if (isBottomControlsVisible) {
+      if (isScrubbing) updateTime(currentTime);
+      else updateTimeThrottled(currentTime); // Optimize with throttle when playing
+    }
+  }
+
+  function updateTime() {
+    _currentTimePercentage = currentTime / duration;
+  }
+
+  const updateTimeThrottled = throttle(
+    (time) => {
+      _currentTimePercentage = time / duration;
+    },
+    250,
+    true
+  );
+
+  const updateChunkBarsThrottled = throttle(
+    (time) => {
       _buffered = buffered.map((item) => {
         return { start: item.start / duration, end: item.end / duration };
       });
@@ -34,10 +62,10 @@
       _played = played.map((item) => {
         return { start: item.start / duration, end: item.end / duration };
       });
-    }
-  }
-
-  $: _currentTimePercentage = currentTime / duration;
+    },
+    250,
+    true
+  );
 
   function onPointerDown(e) {
     e.preventDefault(); // Prevent focusing

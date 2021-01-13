@@ -56,7 +56,7 @@ npm install svelte-video-player
 - `barsBgColor` : `white`
 - `iconColor` : `white`
 - `bufferedColor` : `#FF9600`
-- `chunkBars` : `false`
+- `chunkBars` : `false` - Visualise buffered and played parts of video.
 - `loop` : `false`
 
 ## Usage

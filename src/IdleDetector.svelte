@@ -1,29 +1,30 @@
 <script>
   import { onDestroy } from "svelte";
+  import debounce from "./libs/debounce.js";
 
-  export let isIdle = true;
+  export let isIdle = false;
 
-  let reset = false;
   let timeout;
-  const interval = setInterval(checkReset, 250);
 
-  function checkReset() {
-    if (reset) {
-      isIdle = false;
-      reset = false;
+  function onActivity(e) {
+    isIdle = false;
+    setIdleTimeout();
+  }
+
+  const setIdleTimeout = debounce(
+    () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         isIdle = true;
       }, 2000);
-    }
-  }
+    },
+    250,
+    true
+  );
 
   onDestroy(() => {
     clearTimeout(timeout);
-    clearInterval(interval);
   });
 </script>
 
-<svelte:window
-  on:pointermove={() => (reset = true)}
-  on:keydown={() => (reset = true)} />
+<svelte:window on:pointermove={onActivity} on:keydown={onActivity} />

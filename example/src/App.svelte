@@ -169,12 +169,14 @@
 	<img class="center" src="./svp.svg" height="50" alt="SVP logo" />
 	<h1>Examples</h1>
 
-	<a href="https://npmjs.org/package/svelte-video-player">
-		<img
-			class="center"
-			src="https://badgen.net/npm/v/svelte-video-player"
-			alt="version" />
-	</a>
+	<div style="min-height:20px; margin-bottom:10px;">
+		<a href="https://npmjs.org/package/svelte-video-player">
+			<img
+				class="center"
+				src="https://badgen.net/npm/v/svelte-video-player"
+				alt="version" />
+		</a>
+	</div>
 
 	<p>
 		I will here give a brief sketch of the progress of opinion on the Origin of
@@ -253,7 +255,7 @@
 		accident.
 	</p>
 
-	<VideoPlayer poster={poster2} source={source2} {playerBgColor} />
+	<VideoPlayer poster={poster2} source={source2} {playerBgColor} chunkBars />
 
 	<p>
 		And in like manner as to other parts in which there appears to exist an

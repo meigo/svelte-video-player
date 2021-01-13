@@ -39,7 +39,6 @@
     padding: 10px;
     display: flex;
     gap: 6px;
-    will-change: transform;
     visibility: visible;
     transition: transform 0.5s ease, visibility 0.5s linear;
   }
