@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./svp.svg" alt="svp" width="200" alt="SVP logo" />
+  <img src="./svp_animated.svg" alt="svp" width="200" alt="SVP logo" />
 </div>
 
 <div align="center">

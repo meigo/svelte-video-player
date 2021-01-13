@@ -54,6 +54,7 @@
 		font-weight: 100;
 		text-align: center;
 		line-height: 90%;
+		padding-top: 0.2rem;
 		padding-bottom: 1rem;
 	}
 
@@ -166,8 +167,8 @@
 </svelte:head>
 
 <main>
-	<img class="center" src="./svp.svg" height="50" alt="SVP logo" />
-	<h1>Examples</h1>
+	<img class="center" src="./svp_animated.svg" height="50" alt="SVP logo" />
+	<h1>DEMO</h1>
 
 	<div style="min-height:20px; margin-bottom:10px;">
 		<a href="https://npmjs.org/package/svelte-video-player">
