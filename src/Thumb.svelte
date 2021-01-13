@@ -16,7 +16,6 @@
     height: 100%;
     top: 0;
     pointer-events: none;
-    will-change: transform;
   }
 
   .thumb {

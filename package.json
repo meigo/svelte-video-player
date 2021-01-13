@@ -1,6 +1,6 @@
 {
   "name": "svelte-video-player",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Meigo Kukk",
   "repository": "meigo/svelte-video-player",
   "description": "Basic video player component for svelte apps.",
@@ -8,9 +8,7 @@
   "license": "MIT",
   "svelte": "src/index.js",
   "scripts": {},
-  "dependencies": {
-    "throttle-debounce": "^3.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "keywords": [
     "svelte",

@@ -1,5 +1,6 @@
 <script>
   import { getContext } from "svelte";
+  import { fade } from "svelte/transition";
   import PlayPauseIcon from "./PlayPauseIcon.svelte";
 
   export let hidden;
@@ -16,18 +17,14 @@
     border-style: none;
     border-radius: 9999px;
     border-width: 2px;
-    transition: opacity 0.5s ease, visibility 0.5s linear;
-  }
-
-  .hidden {
-    visibility: hidden;
-    opacity: 0;
   }
 </style>
 
-<div
-  class:hidden
-  class="player-icon"
-  style="background-color:{$cfg.color}; border-color:{$cfg.focusColor};;">
-  <PlayPauseIcon paused />
-</div>
+{#if !hidden}
+  <div
+    class="player-icon"
+    style="background-color:{$cfg.color}; border-color:{$cfg.focusColor};"
+    transition:fade={{ duration: 500 }}>
+    <PlayPauseIcon paused />
+  </div>
+{/if}

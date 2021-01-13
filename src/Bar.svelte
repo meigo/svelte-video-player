@@ -13,7 +13,6 @@
     transform-origin: 0 0;
     border-style: solid;
     border-width: 1px;
-    will-change: transform;
   }
 </style>
 

@@ -3,7 +3,7 @@
 
   export let currentTime;
   export let paused;
-  export let frequency = 100.0;
+  export let frequency = 250;
   export let isBuffering = false;
 
   let lastTime = 0;
@@ -11,14 +11,14 @@
   const interval = setInterval(checkBuffering, frequency);
 
   function checkBuffering() {
-    let offset = (frequency - 20) / 1000;
+    if (!paused) {
+      let offset = (frequency - 20) / 1000;
 
-    if (!isBuffering && currentTime < lastTime + offset && !paused) {
-      isBuffering = true;
-    }
-
-    if (isBuffering && currentTime > lastTime + offset && !paused) {
-      isBuffering = false;
+      if (!isBuffering && currentTime < lastTime + offset) {
+        isBuffering = true;
+      } else if (isBuffering && currentTime > lastTime + offset) {
+        isBuffering = false;
+      }
     }
     lastTime = currentTime;
   }

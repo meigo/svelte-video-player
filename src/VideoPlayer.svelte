@@ -8,7 +8,6 @@
 </script>
 
 <script>
-  import { throttle } from "throttle-debounce";
   import { setContext } from "svelte";
   import { writable } from "svelte/store";
   import { uid, preloadImage, prepareVideoSources } from "./utils.js";
@@ -314,6 +313,7 @@
             {duration}
             {buffered}
             {played}
+            {isBottomControlsVisible}
             bind:currentTime
             bind:paused
             bind:isScrubbing
