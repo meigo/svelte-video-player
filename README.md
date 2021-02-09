@@ -4,13 +4,13 @@
 
 <div align="center">
   <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://badgen.net/npm/v/svelte-video-player" alt="version" />
+    <img src="https://img.shields.io/npm/v/svelte-video-player?style=flat-square" alt="version" />
   </a>
   <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://badgen.net/npm/license/svelte-video-player" alt="licence" />
+    <img src="https://img.shields.io/npm/l/svelte-video-player?style=flat-square" alt="licence" />
   </a>
   <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://badgen.net/npm/dependents/svelte-video-player" alt="dependents" />
+    <img src="https://img.shields.io/badge/dependencies-0-green?style=flat-square" alt="dependencies" />
   </a>
 </div>
 

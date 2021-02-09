@@ -171,7 +171,12 @@
 
   <div style="min-height:20px; margin-bottom:10px;">
     <a href="https://npmjs.org/package/svelte-video-player">
-      <img class="center" src="https://badgen.net/npm/v/svelte-video-player" alt="version" />
+      <img
+        class="center"
+        height="20"
+        src="https://img.shields.io/npm/v/svelte-video-player?style=flat-square"
+        alt="version"
+      />
     </a>
   </div>
 
