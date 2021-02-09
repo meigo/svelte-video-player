@@ -33,15 +33,26 @@ export function uid() {
 }
 
 export async function preloadImage(url) {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.addEventListener(
-      'load',
-      () => {
-        resolve(image);
-      },
-      { once: true }
-    );
-    image.src = url;
+  return new Promise((resolve, reject) => {
+    if (url) {
+      const image = new Image();
+      image.addEventListener(
+        'load',
+        () => {
+          resolve(image);
+        },
+        { once: true }
+      );
+      image.addEventListener(
+        'error',
+        () => {
+          resolve();
+        },
+        { once: true }
+      );
+      image.src = url;
+    } else {
+      resolve();
+    }
   });
 }

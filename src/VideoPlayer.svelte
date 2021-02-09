@@ -8,24 +8,24 @@
 </script>
 
 <script>
-  import { setContext } from "svelte";
-  import { writable } from "svelte/store";
-  import { uid, preloadImage, prepareVideoSources } from "./utils.js";
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
+  import { uid, preloadImage, prepareVideoSources } from './utils.js';
 
-  import Poster from "./Poster.svelte";
-  import Controls from "./Controls.svelte";
-  import CenterIcons from "./CenterIcons.svelte";
-  import BottomControls from "./BottomControls.svelte";
-  import Playbar from "./Playbar.svelte";
-  import PlayPauseButton from "./PlayPauseButton.svelte";
-  import VolumeButton from "./VolumeButton.svelte";
-  import VolumeControl from "./VolumeControl.svelte";
-  import FullscreenButton from "./FullscreenButton.svelte";
-  import FullscreenManager from "./FullscreenManager.svelte";
-  import IdleDetector from "./IdleDetector.svelte";
-  import ScrollDetector from "./ScrollDetector.svelte";
-  import Spinner from "./Spinner.svelte";
-  import BufferingDetector from "./BufferingDetector.svelte";
+  import Poster from './Poster.svelte';
+  import Controls from './Controls.svelte';
+  import CenterIcons from './CenterIcons.svelte';
+  import BottomControls from './BottomControls.svelte';
+  import Playbar from './Playbar.svelte';
+  import PlayPauseButton from './PlayPauseButton.svelte';
+  import VolumeButton from './VolumeButton.svelte';
+  import VolumeControl from './VolumeControl.svelte';
+  import FullscreenButton from './FullscreenButton.svelte';
+  import FullscreenManager from './FullscreenManager.svelte';
+  import IdleDetector from './IdleDetector.svelte';
+  import ScrollDetector from './ScrollDetector.svelte';
+  import Spinner from './Spinner.svelte';
+  import BufferingDetector from './BufferingDetector.svelte';
 
   //-------------------------------------------------------------------------------------------------------------------
   // PROPS
@@ -35,16 +35,16 @@
   export let height = 1080;
   export let poster;
   export let source;
-  export let controlsHeight = "55px";
-  export let trackHeight = "6px";
-  export let thumbSize = "15px";
-  export let centerIconSize = "60px";
-  export let playerBgColor = "black";
-  export let color = "#FF3E00";
-  export let focusColor = "white";
-  export let barsBgColor = "white";
-  export let iconColor = "white";
-  export let bufferedColor = "#FF9600";
+  export let controlsHeight = '55px';
+  export let trackHeight = '6px';
+  export let thumbSize = '15px';
+  export let centerIconSize = '60px';
+  export let playerBgColor = 'black';
+  export let color = '#FF3E00';
+  export let focusColor = 'white';
+  export let barsBgColor = 'white';
+  export let iconColor = 'white';
+  export let bufferedColor = '#FF9600';
   export let chunkBars = false;
   export let loop = false;
 
@@ -58,7 +58,7 @@
   //-------------------------------------------------------------------------------------------------------------------
 
   const config = writable({});
-  setContext("config", config);
+  setContext('config', config);
 
   $: $config.controlsHeight = controlsHeight;
   $: $config.thumbSize = thumbSize;
@@ -116,14 +116,13 @@
 
   $: isPosterVisible = !isVideoData || (paused && currentTime == 0);
 
-  $: isBottomControlsVisible =
-    isVideoData && (paused || (isPointerOverVideo && !isIdle));
+  $: isBottomControlsVisible = isVideoData && (paused || (isPointerOverVideo && !isIdle));
 
   $: isSpinnerVisible = seeking || isBuffering;
 
   $: isCenterIconVisibile = !isVideoData || (paused && !isScrubbing);
 
-  $: _playerBgColor = isVideoData ? "transparent" : playerBgColor;
+  $: _playerBgColor = isVideoData ? 'transparent' : playerBgColor;
 
   //-------------------------------------------------------------------------------------------------------------------
   // EVENT HANDLERS
@@ -154,7 +153,7 @@
   function onWindowKeyDown(e) {
     if (currentVideo !== videoElement) return;
     switch (e.code) {
-      case "Tab":
+      case 'Tab':
         if (isKeyDown) break; // Prevent long press
         if (!isBottomControlsVisible) {
           e.stopPropagation();
@@ -162,16 +161,16 @@
           isBottomControlsVisible = true;
         }
         break;
-      case "Space":
+      case 'Space':
         if (isKeyDown) break; // Prevent long press
         e.preventDefault(); // Prevent page scroll
         currentVideo.paused ? currentVideo.play() : currentVideo.pause();
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         e.preventDefault();
         timeJump(true);
         break;
-      case "ArrowRight":
+      case 'ArrowRight':
         e.preventDefault();
         timeJump();
         break;
@@ -247,6 +246,7 @@
     right: 0;
     bottom: 0;
     left: 0;
+    outline: none;
   }
 
   video {
@@ -262,9 +262,7 @@
 
 <svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
 
-<div
-  class="aspect"
-  style="padding-top:{_aspectRatio * 100}%; background-color:{_playerBgColor};">
+<div class="aspect" style="padding-top:{_aspectRatio * 100}%; background-color:{_playerBgColor};">
   {#await preloadImage(poster)}
     <div>
       <Spinner color={iconColor} size="60px" />
@@ -276,7 +274,8 @@
       bind:this={videoPlayerElement}
       on:pointerover={onPlayerPointerOver}
       on:pointerout={onPlayerPointerOut}
-      on:pointerup={onPlayerPointerUp}>
+      on:pointerup={onPlayerPointerUp}
+    >
       <video
         {width}
         {height}
@@ -292,7 +291,8 @@
         bind:volume
         on:loadeddata|once={onVideoLoadedData}
         on:play={onPlay}
-        preload="none">
+        preload="none"
+      >
         <track kind="captions" />
         {#each _sources as { src, type }}
           <source {src} {type} />
@@ -300,14 +300,12 @@
         <p>Sorry, your browser doesn't support HTML5 videos.</p>
       </video>
 
-      {#if isPosterVisible}
+      {#if poster && isPosterVisible}
         <Poster src={poster} />
       {/if}
 
       <Controls>
-        <BottomControls
-          hidden={!isBottomControlsVisible}
-          bind:isPointerOver={isPointerOverControls}>
+        <BottomControls hidden={!isBottomControlsVisible} bind:isPointerOver={isPointerOverControls}>
           <PlayPauseButton on:pointerup={onPlayPauseButtonPointerUp} {paused} />
           <Playbar
             {duration}
@@ -317,24 +315,24 @@
             bind:currentTime
             bind:paused
             bind:isScrubbing
-            on:pointerup={onPlaybarPointerUp} />
+            on:pointerup={onPlaybarPointerUp}
+          />
           <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
           <VolumeControl bind:volume />
           {#if isFullscreenEnabled}
-            <FullscreenButton
-              on:pointerup={onFullscreenButtonPointerUp}
-              {isFullscreen} />
+            <FullscreenButton on:pointerup={onFullscreenButtonPointerUp} {isFullscreen} />
           {/if}
         </BottomControls>
         <CenterIcons
           isIconVisible={isCenterIconVisibile}
           {isSpinnerVisible}
           {isBuffering}
-          on:togglePause={togglePause} />
+          on:togglePause={togglePause}
+        />
       </Controls>
     </div>
   {:catch error}
-    <p style="color: red">{error.message}</p>
+    <p style="color:red;">{error}</p>
   {/await}
 
   <BufferingDetector {currentTime} {paused} bind:isBuffering />
@@ -343,8 +341,5 @@
 
   <ScrollDetector bind:isScrolling />
 
-  <FullscreenManager
-    element={videoPlayerElement}
-    bind:isFullscreenEnabled
-    bind:isFullscreen />
+  <FullscreenManager element={videoPlayerElement} bind:isFullscreenEnabled bind:isFullscreen />
 </div>

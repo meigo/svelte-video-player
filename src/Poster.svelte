@@ -13,4 +13,4 @@
   }
 </style>
 
-<img {src} class="poster" alt="poster" />
+<img {src} class="poster" alt="poster" onerror="this.style.display='none'" />
