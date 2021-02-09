@@ -31,6 +31,7 @@
   let iconColor = '#FFFFFF';
   let chunkBars = false;
   let loop = false;
+  let borderRadius = '8';
 </script>
 
 <style>
@@ -53,12 +54,6 @@
     line-height: 90%;
     padding-top: 0.2rem;
     padding-bottom: 1rem;
-  }
-
-  h4 {
-    margin: 1rem 0;
-    text-align: center;
-    color: #ff3e00;
   }
 
   p {
@@ -201,6 +196,10 @@
         ><span>Track Height</span>
         <input type="range" min="4" max="20" bind:value={trackHeight} />
       </label>
+      <label
+        ><span>Border Radius</span>
+        <input type="range" min="0" max="25" bind:value={borderRadius} />
+      </label>
       <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
       <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
       <label
@@ -221,6 +220,7 @@
       thumbSize="{thumbSize}px"
       trackHeight="{trackHeight}px"
       centerIconSize="{centerIconSize}px"
+      borderRadius="{borderRadius}px"
       {color}
       {playerBgColor}
       {barsBgColor}
@@ -271,18 +271,15 @@
     generated.
   </p>
   <div class="video-player-grid">
-    <div>
-      <h4>Video with undefined poster and wrong aspect ratio</h4>
-      <VideoPlayer source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" loop />
-    </div>
-    <div>
-      <h4>Video with unexisting poster</h4>
-      <VideoPlayer
-        poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
-        source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
-        {playerBgColor}
-      />
-    </div>
+    <VideoPlayer
+      source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
+      playerBgColor="#000"
+    />
+    <VideoPlayer
+      poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
+      source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
+      {playerBgColor}
+    />
   </div>
   (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat. Generale",
   tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is given of Buffon's

@@ -46,6 +46,7 @@
   export let iconColor = 'white';
   export let bufferedColor = '#FF9600';
   export let chunkBars = false;
+  export let borderRadius = '8px';
   export let loop = false;
 
   $: _width = parseInt(width);
@@ -72,6 +73,7 @@
   $: $config.bufferedColor = bufferedColor;
   $: $config.chunkBars = chunkBars;
   $: $config.loop = loop;
+  $: $config.borderRadius = borderRadius;
 
   //-------------------------------------------------------------------------------------------------------------------
   // VIDEO ELEMENT BINDINGS
@@ -122,7 +124,7 @@
 
   $: isCenterIconVisibile = !isVideoData || (paused && !isScrubbing);
 
-  $: _playerBgColor = isVideoData ? 'transparent' : playerBgColor;
+  // $: _playerBgColor = isVideoData ? 'transparent' : playerBgColor;
 
   //-------------------------------------------------------------------------------------------------------------------
   // EVENT HANDLERS
@@ -262,7 +264,10 @@
 
 <svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
 
-<div class="aspect" style="padding-top:{_aspectRatio * 100}%; background-color:{_playerBgColor};">
+<div
+  class="aspect"
+  style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}"
+>
   {#await preloadImage(poster)}
     <div>
       <Spinner color={iconColor} size="60px" />
