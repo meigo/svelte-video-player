@@ -273,7 +273,7 @@
   <div class="video-player-grid">
     <VideoPlayer
       source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
-      playerBgColor="#000"
+      playerBgColor="black"
     />
     <VideoPlayer
       poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
