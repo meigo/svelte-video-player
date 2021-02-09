@@ -278,8 +278,8 @@
     <div>
       <h4>Video with unexisting poster</h4>
       <VideoPlayer
-        poster="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny2.jpg"
-        source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
+        source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
         {playerBgColor}
       />
     </div>
