@@ -157,14 +157,6 @@
   }
 </style>
 
-<svelte:head>
-  <title>Svelte Video Player Demo</title>
-  <meta name="title" content="Svelte Video Player Demo" />
-  <meta name="Description" content="Svelte Video player demo app." />
-  <meta name="msapplication-TileColor" content="#da532c" />
-  <meta name="theme-color" content="#fbf3e6" />
-</svelte:head>
-
 <main>
   <img class="center" src="./svp_animated.svg" height="50" alt="SVP logo" />
   <h1>DEMO</h1>
@@ -175,8 +167,7 @@
         class="center"
         height="20"
         src="https://img.shields.io/npm/v/svelte-video-player?style=flat-square"
-        alt="version"
-      />
+        alt="version" />
     </a>
   </div>
 
@@ -233,8 +224,7 @@
       {focusColor}
       {bufferedColor}
       {chunkBars}
-      {loop}
-    />
+      {loop} />
   </div>
 
   <p>
@@ -278,13 +268,11 @@
   <div class="video-player-grid">
     <VideoPlayer
       source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
-      playerBgColor="black"
-    />
+      playerBgColor="black" />
     <VideoPlayer
       poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
       source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
-      {playerBgColor}
-    />
+      {playerBgColor} />
   </div>
   (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat. Generale",
   tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is given of Buffon's
