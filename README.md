@@ -46,7 +46,8 @@ npm install svelte-video-player
 - `height` : `1080` - For calculating aspect ratio for responsive design.
 - `poster` - Absolute or relative URL of poster image.
 - `source` - Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg`.
-- `controlsHeigh` : `55px`
+- `borderRadius` : `8px`
+- `controlsHeight` : `55px`
 - `trackHeight` : `6px`
 - `thumbSize` : `15px`
 - `centerIconSize` : `60px`
@@ -58,6 +59,7 @@ npm install svelte-video-player
 - `bufferedColor` : `#FF9600`
 - `chunkBars` : `false` - Visualise buffered and played parts of video.
 - `loop` : `false`
+- `skipSeconds` : `5` - Skip time amount when pressing left/right arrow keys
 
 ## Usage
 
