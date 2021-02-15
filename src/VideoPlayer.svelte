@@ -48,11 +48,13 @@
   export let chunkBars = false;
   export let borderRadius = '8px';
   export let loop = false;
+  export let skipSeconds = 5;
 
   $: _width = parseInt(width);
   $: _height = parseInt(height);
   $: _aspectRatio = _height / _width;
   $: _sources = prepareVideoSources(source);
+  $: _skipSeconds = parseFloat(skipSeconds);
 
   //-------------------------------------------------------------------------------------------------------------------
   // REACTIVE CONFIG CONTEXT
@@ -186,9 +188,8 @@
   function timeJump(back) {
     const t = currentVideo.currentTime;
     const d = currentVideo.duration;
-    const a = 3.0;
-    if (back) currentVideo.currentTime = t > a ? t - a : 0;
-    else currentVideo.currentTime = t + a < d ? t + a : d - 0.2;
+    if (back) currentVideo.currentTime = t > _skipSeconds ? t - _skipSeconds : 0;
+    else currentVideo.currentTime = t + _skipSeconds < d ? t + _skipSeconds : d - 0.2;
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -264,8 +265,7 @@
 
 <div
   class="aspect"
-  style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}"
->
+  style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}">
   {#await preloadImage(poster)}
     <div>
       <Spinner color={iconColor} size="60px" />
@@ -277,8 +277,7 @@
       bind:this={videoPlayerElement}
       on:pointerover={onPlayerPointerOver}
       on:pointerout={onPlayerPointerOut}
-      on:pointerup={onPlayerPointerUp}
-    >
+      on:pointerup={onPlayerPointerUp}>
       <video
         {width}
         {height}
@@ -294,8 +293,7 @@
         bind:volume
         on:loadeddata|once={onVideoLoadedData}
         on:play={onPlay}
-        preload="none"
-      >
+        preload="none">
         <track kind="captions" />
         {#each _sources as { src, type }}
           <source {src} {type} />
@@ -318,8 +316,7 @@
             bind:currentTime
             bind:paused
             bind:isScrubbing
-            on:pointerup={onPlaybarPointerUp}
-          />
+            on:pointerup={onPlaybarPointerUp} />
           <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
           <VolumeControl bind:volume />
           {#if isFullscreenEnabled}
@@ -330,8 +327,7 @@
           isIconVisible={isCenterIconVisibile}
           {isSpinnerVisible}
           {isBuffering}
-          on:togglePause={togglePause}
-        />
+          on:togglePause={togglePause} />
       </Controls>
     </div>
   {:catch error}

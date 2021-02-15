@@ -31,7 +31,8 @@
   let iconColor = '#FFFFFF';
   let chunkBars = false;
   let loop = false;
-  let borderRadius = '8';
+  let borderRadius = 8;
+  let skipSeconds = 10;
 </script>
 
 <style>
@@ -199,6 +200,10 @@
       <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
       <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
       <label
+        ><span>Skip Seconds</span>
+        <input type="range" min="1" max="20" bind:value={skipSeconds} />
+      </label>
+      <label
         ><span>Center Icon Size</span>
         <input type="range" min="40" max="200" bind:value={centerIconSize} />
       </label>
@@ -224,7 +229,8 @@
       {focusColor}
       {bufferedColor}
       {chunkBars}
-      {loop} />
+      {loop}
+      {skipSeconds} />
   </div>
 
   <p>
@@ -237,7 +243,7 @@
     made for the sake of this, but it was the result of accident.
   </p>
 
-  <VideoPlayer poster={poster2} source={source2} {playerBgColor} chunkBars />
+  <VideoPlayer poster={poster2} source={source2} {playerBgColor} chunkBars skipSeconds="3" />
 
   <p>
     And in like manner as to other parts in which there appears to exist an adaptation to an end. Wheresoever,
@@ -247,7 +253,14 @@
     shadowed forth, but how little Aristotle fully comprehended the principle, is shown by his remarks on the formation
     of the teeth.), the first author who in modern times has treated it in a scientific spirit was Buffon.
     <span class="video-player-inline">
-      <VideoPlayer width="540" height="540" {playerBgColor} poster={poster_kaka} source={source_kaka} loop />
+      <VideoPlayer
+        width="540"
+        height="540"
+        {playerBgColor}
+        poster={poster_kaka}
+        source={source_kaka}
+        loop
+        skipSeconds="2" />
     </span>
     But as his opinions fluctuated greatly at different periods, and as he does not enter on the causes or means of the transformation
     of species, I need not here enter on details. Lamarck was the first man whose conclusions on the subject excited much
@@ -268,10 +281,12 @@
   <div class="video-player-grid">
     <VideoPlayer
       source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
-      playerBgColor="black" />
+      playerBgColor="black"
+      skipSeconds="1.5" />
     <VideoPlayer
       poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
       source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
+      skipSeconds={3}
       {playerBgColor} />
   </div>
   (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat. Generale",
