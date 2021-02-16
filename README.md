@@ -24,7 +24,9 @@ Starting a player will pause previously playing video player instance.
 
 Fullscreen functionality is disabled on iPhone, other than that should function fairly smoothly in both desktop and mobile browsers.
 
-## Demo
+---
+
+## DEMO
 
 https://svelte-video-player.netlify.app/
 
@@ -61,20 +63,18 @@ npm install svelte-video-player
 - `loop` : `false`
 - `skipSeconds` : `5` - Skip time amount when pressing left/right arrow keys
 
-## Usage
+---
 
-See [Example App.svelte](./example/src/App.svelte).
+## USAGE
 
 If aspect ratio of the video is other than default 16:9 provide `width` and `height` props to player for calculating aspect ratio to prevent [CLS](https://web.dev/cls/).
 Real size of video player will be determined by it's parent element.
 
-```js
-<VideoPlayer poster="poster_url" source="video_url" />
-```
+<br />
 
-```js
-<VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
-```
+### IMPORT DIRECTLY TO SVELTE APPS
+
+See [Example App.svelte](./example/src/App.svelte).
 
 ```html
 <script>
@@ -89,4 +89,47 @@ Real size of video player will be determined by it's parent element.
 </script>
 
 <VideoPlayer {poster} {source} />;
+```
+
+```js
+<VideoPlayer poster="poster_url" source="video_url" />
+```
+
+```js
+<VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
+```
+
+<br />
+
+### FOR NON-SVELTE USAGE LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
+
+```html
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/svelte-video-player@latest/dist/svelte-video-player.css" />
+    <script src="https://unpkg.com/svelte-video-player@latest/dist/svelte-video-player.js"></script>
+
+    <script>
+      function initPlayer() {
+        let player = new VideoPlayer({
+          target: document.getElementById('player'),
+          props: {
+            poster:
+              'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif',
+            source:
+              'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608783907/xixhbu5v9aawqqgiafri.mp4',
+            controlsHeight: '45px',
+            centerIconSize: '50px',
+            color: 'deepskyblue',
+          },
+        });
+      }
+    </script>
+  </head>
+  <body onload="initPlayer()">
+    <div style="width: 400px; margin: 0 auto;">
+      <div id="player" />
+    </div>
+  </body>
+</html>
 ```
