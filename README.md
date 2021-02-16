@@ -24,8 +24,6 @@ Starting a player will pause previously playing video player instance.
 
 Fullscreen functionality is disabled on iPhone, other than that should function fairly smoothly in both desktop and mobile browsers.
 
----
-
 ## DEMO
 
 https://svelte-video-player.netlify.app/
@@ -63,14 +61,10 @@ npm install svelte-video-player
 - `loop` : `false`
 - `skipSeconds` : `5` - Skip time amount when pressing left/right arrow keys
 
----
-
 ## USAGE
 
 If aspect ratio of the video is other than default 16:9 provide `width` and `height` props to player for calculating aspect ratio to prevent [CLS](https://web.dev/cls/).
 Real size of video player will be determined by it's parent element.
-
-<br />
 
 ### IMPORT DIRECTLY TO SVELTE APPS
 
@@ -98,8 +92,6 @@ See [Example App.svelte](./example/src/App.svelte).
 ```js
 <VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
 ```
-
-<br />
 
 ### FOR NON-SVELTE USAGE LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
 
