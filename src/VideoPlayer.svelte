@@ -2,7 +2,7 @@
   let currentVideo;
 
   function onPlay(e) {
-    if (currentVideo && currentVideo !== e.target) currentVideo.pause(); // Pause previous video
+    if (currentVideo && currentVideo !== e.target) currentVideo.pause(); // Pause other videos
     currentVideo = e.target;
   }
 </script>
@@ -99,7 +99,7 @@
   $: {
     if (ended) {
       currentTime = 0;
-      if (loop) currentVideo.play();
+      if (loop) videoElement.play();
     }
   }
 
@@ -186,10 +186,10 @@
   }
 
   function timeJump(back) {
-    const t = currentVideo.currentTime;
-    const d = currentVideo.duration;
-    if (back) currentVideo.currentTime = t > _skipSeconds ? t - _skipSeconds : 0;
-    else currentVideo.currentTime = t + _skipSeconds < d ? t + _skipSeconds : d - 0.2;
+    const t = videoElement.currentTime;
+    const d = videoElement.duration;
+    if (back) videoElement.currentTime = t > _skipSeconds ? t - _skipSeconds : 0;
+    else videoElement.currentTime = t + _skipSeconds < d ? t + _skipSeconds : d - 0.2;
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -199,7 +199,7 @@
   }
 
   function onPlaybarPointerUp(e) {
-    if (videoElement != currentVideo) paused = false;
+    if (videoElement != videoElement) paused = false;
   }
 
   function onPlayPauseButtonPointerUp(e) {
