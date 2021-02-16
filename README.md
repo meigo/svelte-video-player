@@ -95,6 +95,8 @@ See [Example App.svelte](./example/src/App.svelte).
 
 ### FOR NON-SVELTE USAGE LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
 
+Example: https://codepen.io/meigo-kukk/pen/yLVMZBO
+
 ```html
 <html>
   <head>
@@ -110,16 +112,16 @@ See [Example App.svelte](./example/src/App.svelte).
               'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif',
             source:
               'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608783907/xixhbu5v9aawqqgiafri.mp4',
-            controlsHeight: '45px',
-            centerIconSize: '50px',
+            controlsHeight: '55px',
+            centerIconSize: '60px',
             color: 'deepskyblue',
           },
         });
       }
     </script>
   </head>
-  <body onload="initPlayer()">
-    <div style="width: 400px; margin: 0 auto;">
+  <body onload="initPlayer()" style="background-color:#333">
+    <div style="max-width: 600px; margin: 0 auto;">
       <div id="player" />
     </div>
   </body>
