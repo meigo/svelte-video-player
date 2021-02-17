@@ -31,13 +31,13 @@ https://svelte-video-player.netlify.app/
 ## Installation
 
 ```bash
-yarn add svelte-video-player
+yarn add -D svelte-video-player
 ```
 
 or
 
 ```bash
-npm install svelte-video-player
+npm install -D svelte-video-player
 ```
 
 ## Props / Defaults
