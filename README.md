@@ -16,7 +16,7 @@
 
 # Svelte Video Player
 
-## Basic video player component for svelte.
+## Basic video player component for svelte, sapper and legacy apps.
 
 Controls are tabbable and respond to key presses (enter/space/arrows) where applicable.
 
@@ -66,7 +66,7 @@ npm install svelte-video-player
 If aspect ratio of the video is other than default 16:9 provide `width` and `height` props to player for calculating aspect ratio to prevent [CLS](https://web.dev/cls/).
 Real size of video player will be determined by it's parent element.
 
-### IMPORT DIRECTLY TO SVELTE APPS
+### IMPORT DIRECTLY TO SVELTE OR SAPPER APPS
 
 See [Example App.svelte](./example/src/App.svelte).
 
@@ -93,7 +93,7 @@ See [Example App.svelte](./example/src/App.svelte).
 <VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
 ```
 
-### FOR NON-SVELTE USAGE LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
+### FOR LEGACY APPS LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
 
 Example: https://codepen.io/meigo-kukk/pen/yLVMZBO
 
