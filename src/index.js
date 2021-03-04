@@ -1,4 +1,1 @@
-import VideoPlayer from './VideoPlayer.svelte';
-
-export { VideoPlayer };
-export default VideoPlayer;
+export { default as default } from './Videoplayer.svelte';

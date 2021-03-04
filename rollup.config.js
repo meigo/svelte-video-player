@@ -6,7 +6,6 @@ import css from 'rollup-plugin-css-only';
 import del from 'rollup-plugin-delete';
 import pkg from './package.json';
 import sveltePreprocess from 'svelte-preprocess';
-import sveld from 'sveld';
 
 const name = pkg.name
   .replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
@@ -15,7 +14,11 @@ const name = pkg.name
 
 export default {
   input: 'src/index.js',
-  output: [{ file: 'dist/svelte-video-player.js', format: 'iife', name, exports: 'named' }],
+  output: [
+    { file: pkg.module, format: 'es' },
+    { file: pkg.main, format: 'umd', name },
+  ],
+
   plugins: [
     del({ targets: ['dist/'] }),
     svelte({
@@ -28,7 +31,6 @@ export default {
     css({ output: 'svelte-video-player.css' }),
     resolve(),
     commonjs(),
-    sveld(),
     terser(),
   ],
   watch: {
