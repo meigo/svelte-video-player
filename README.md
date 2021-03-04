@@ -12,6 +12,9 @@
   <a href="https://npmjs.org/package/svelte-video-player">
     <img src="https://img.shields.io/badge/dependencies-0-green?style=flat-square" alt="dependencies" />
   </a>
+  <a href="https://npmjs.org/package/svelte-video-player">
+    <img src="https://img.shields.io/npm/types/typescript?style=flat-square" alt="typescript" />
+  </a>
 </div>
 
 # Svelte Video Player
@@ -24,49 +27,47 @@ Starting a player will pause previously playing video player instance.
 
 Fullscreen functionality is disabled on iPhone, other than that should function fairly smoothly in both desktop and mobile browsers.
 
-## DEMO
+## Demo
 
 https://svelte-video-player.netlify.app/
 
 ## Installation
 
 ```bash
-yarn add -D svelte-video-player
+yarn add svelte-video-player
+# OR
+npm install svelte-video-player
 ```
 
-or
+## Props
 
-```bash
-npm install -D svelte-video-player
-```
+| Prop name      | Type                                | Default value          | Description                                                                                                 |
+| :------------- | :---------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| width          | <code>string &#124; number</code>   | <code>1920</code>      | Real width of video for calculating aspect ratio for responsive design                                      |
+| height         | <code>string &#124; number</code>   | <code>1080</code>      | Real height of video for calculating aspect ratio for responsive design                                     |
+| poster         | <code>string</code>                 | <code>''</code>        | Absolute or relative URL of poster image                                                                    |
+| source         | <code>string &#124; string[]</code> | <code>''</code>        | Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg` |
+| controlsHeight | <code>string</code>                 | <code>'55px'</code>    | Height of bottom control bar, rescaling included components                                                 |
+| trackHeight    | <code>string</code>                 | <code>'6px'</code>     | Height of playbar and volume slider tracks                                                                  |
+| thumbSize      | <code>string</code>                 | <code>'15px'</code>    | Size of playbar and volume slider thumb                                                                     |
+| centerIconSize | <code>string</code>                 | <code>'60px'</code>    | Size of center icon                                                                                         |
+| playerBgColor  | <code>string</code>                 | <code>'black'</code>   | Color of player background                                                                                  |
+| color          | <code>string</code>                 | <code>'#FF3E00'</code> | Main color of control components                                                                            |
+| focusColor     | <code>string</code>                 | <code>'white'</code>   | Color of focus outlines                                                                                     |
+| barsBgColor    | <code>string</code>                 | <code>'white'</code>   | Background color of playbar and volume slider tracks                                                        |
+| iconColor      | <code>string</code>                 | <code>'white'</code>   | Color of button icons                                                                                       |
+| bufferedColor  | <code>string</code>                 | <code>'#FF9600'</code> | Color of buffered chunks                                                                                    |
+| chunkBars      | <code>boolean</code>                | <code>false</code>     | Display overlay with buffered and played parts of video                                                     |
+| borderRadius   | <code>string</code>                 | <code>'8px'</code>     | Rounded corner radius of the player.                                                                        |
+| loop           | <code>boolean</code>                | <code>false</code>     | Play video in loop                                                                                          |
+| skipSeconds    | <code>string &#124; number</code>   | <code>5</code>         | Skipping time in seconds                                                                                    |
 
-## Props / Defaults
-
-- `width` : `1920` - For calculating aspect ratio for responsive design.
-- `height` : `1080` - For calculating aspect ratio for responsive design.
-- `poster` - Absolute or relative URL of poster image.
-- `source` - Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg`.
-- `borderRadius` : `8px`
-- `controlsHeight` : `55px`
-- `trackHeight` : `6px`
-- `thumbSize` : `15px`
-- `centerIconSize` : `60px`
-- `playerBgColor` : `black`
-- `color` : `#FF3E00`
-- `focusColor` : `white`
-- `barsBgColor` : `white`
-- `iconColor` : `white`
-- `bufferedColor` : `#FF9600`
-- `chunkBars` : `false` - Visualise buffered and played parts of video.
-- `loop` : `false`
-- `skipSeconds` : `5` - Skip time amount when pressing left/right arrow keys
-
-## USAGE
+## Usage
 
 If aspect ratio of the video is other than default 16:9 provide `width` and `height` props to player for calculating aspect ratio to prevent [CLS](https://web.dev/cls/).
 Real size of video player will be determined by it's parent element.
 
-### IMPORT DIRECTLY TO SVELTE OR SAPPER APPS
+### Import directly to svelte or sapper apps
 
 See [Example App.svelte](./example/src/App.svelte).
 
@@ -93,7 +94,7 @@ See [Example App.svelte](./example/src/App.svelte).
 <VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
 ```
 
-### FOR LEGACY APPS LOAD PREBUILT SCRIPT AND STYLESHEET FROM unpkg.com
+### For legacy apps load prebuilt script and stylesheet from unpkg.com
 
 Example: https://codepen.io/meigo-kukk/pen/yLVMZBO
 

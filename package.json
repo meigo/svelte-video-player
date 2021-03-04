@@ -6,7 +6,8 @@
   "description": "Basic video player component for svelte apps.",
   "homepage": "https://github.com/meigo/svelte-video-player",
   "license": "MIT",
-  "svelte": "src/index.js",
+  "svelte": "./src/index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "yarn build"
@@ -22,6 +23,7 @@
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "sveld": "^0.7.1",
     "svelte": "^3.31.2",
     "svelte-preprocess": "^4.6.9"
   },
@@ -32,6 +34,7 @@
   ],
   "files": [
     "src",
-    "dist"
+    "dist",
+    "types"
   ]
 }
