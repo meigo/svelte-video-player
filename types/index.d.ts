@@ -1,1 +1,1 @@
-export { default as default } from './Videoplayer.svelte';
+export { default as default } from './VideoPlayer';
