@@ -25,7 +25,6 @@
   import IdleDetector from './IdleDetector.svelte';
   import ScrollDetector from './ScrollDetector.svelte';
   import Spinner from './Spinner.svelte';
-  import BufferingDetector from './BufferingDetector.svelte';
 
   //-------------------------------------------------------------------------------------------------------------------
   // PROPS
@@ -130,6 +129,14 @@
 
   function onVideoLoadedData(e) {
     isVideoData = true;
+  }
+
+  function onVideoPlaying(e) {
+    isBuffering = false;
+  }
+
+  function onVideoWaiting(e) {
+    isBuffering = true;
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -291,6 +298,8 @@
         bind:volume
         on:loadeddata|once={onVideoLoadedData}
         on:play={onPlay}
+        on:playing={onVideoPlaying}
+        on:waiting={onVideoWaiting}
         preload="none">
         <track kind="captions" />
         {#each _sources as { src, type }}
@@ -332,7 +341,7 @@
     <p style="color:red;">{error}</p>
   {/await}
 
-  <BufferingDetector {currentTime} {paused} bind:isBuffering />
+  <!-- <BufferingDetector {currentTime} {paused} bind:isBuffering /> -->
 
   <IdleDetector bind:isIdle />
 
