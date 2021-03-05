@@ -1,6 +1,6 @@
 export function extensionToMimeType(filename) {
   const mimes = { mp4: 'video/mp4', ogv: 'video/ogg', webm: 'video/webm' };
-  const ext = filename.split('.').pop();
+  const ext = (filename.match(/\.([^.]*?)(?=\?|#|$)/) || [])[1];
   if (ext in mimes) return mimes[ext];
   console.error(`Unsupported source file type: "${ext}"`);
   return;
