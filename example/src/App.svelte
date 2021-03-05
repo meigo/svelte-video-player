@@ -1,36 +1,36 @@
-<script>
-  import VideoPlayer from '../../src';
+<script lang="ts">
+  import VideoPlayer from 'svelte-video-player';
 
-  const poster = 'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif';
-  const source = [
+  const poster: string =
+    'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif';
+  const source: string[] = [
     'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608783907/xixhbu5v9aawqqgiafri.mp4',
     'https://res.cloudinary.com/animaly/video/upload/ac_vorbis,vc_vp8/v1608783907/xixhbu5v9aawqqgiafri.webm',
     'https://res.cloudinary.com/animaly/video/upload/ac_vorbis,vc_theora/v1608783907/xixhbu5v9aawqqgiafri.ogv',
   ];
 
-  const poster2 =
+  const poster2: string =
     'https://res.cloudinary.com/animaly/image/upload/c_scale,h_540,q_auto:good,w_960/v1608521485/y8aqxjo6uur4tltpwwkd.jpg';
-  const source2 = 'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443340/o98djzz6ecq3nfhz84rr.mp4';
+  const source2: string =
+    'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443340/o98djzz6ecq3nfhz84rr.mp4';
 
-  const poster3 =
-    'https://res.cloudinary.com/animaly/image/upload/c_scale,h_540,q_auto:good,w_960/v1610337255/im4ojmvhpvjd34cgvmdf.jpg';
-  const source3 = 'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443015/nqios9pxpltgfktccebr.mp4';
+  const poster_kaka: string = './kaka_walk.jpg';
+  const source_kaka: string[] = ['./kaka_walk.mp4'];
 
-  const poster_kaka = './kaka_walk.jpg';
-  const source_kaka = ['./kaka_walk.mp4'];
-
-  let controlsHeight = 60;
-  let trackHeight = 6;
-  let thumbSize = 15;
-  let centerIconSize = 60;
-  let color = '#FF3E00';
-  let bufferedColor = '#FF9600';
-  let playerBgColor = '#F1DFC0';
-  let barsBgColor = '#FFFFFF';
-  let focusColor = '#FFFFFF';
-  let iconColor = '#FFFFFF';
-  let chunkBars = false;
-  let loop = false;
+  let controlsHeight: number = 60;
+  let trackHeight: number = 6;
+  let thumbSize: number = 15;
+  let centerIconSize: number = 60;
+  let color: string = '#FF3E00';
+  let bufferedColor: string = '#FF9600';
+  let playerBgColor: string = '#F1DFC0';
+  let barsBgColor: string = '#FFFFFF';
+  let focusColor: string = '#FFFFFF';
+  let iconColor: string = '#FFFFFF';
+  let chunkBars: boolean = false;
+  let loop: boolean = false;
+  let borderRadius: number = 8;
+  let skipSeconds: number = 10;
 </script>
 
 <style>
@@ -47,9 +47,12 @@
   h1 {
     color: #ff3e00;
     text-transform: uppercase;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 100;
     text-align: center;
+    line-height: 90%;
+    padding-top: 0.2rem;
+    padding-bottom: 1rem;
   }
 
   p {
@@ -81,7 +84,7 @@
 
   .config label {
     display: block;
-    min-height: 1.6rem;
+    min-height: 35px;
     width: 9rem;
   }
 
@@ -111,6 +114,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 10px 0px;
+    margin-bottom: 1rem;
   }
 
   .video-player-inline {
@@ -119,11 +123,14 @@
   }
 
   @media (min-width: 640px) {
+    .config label {
+      min-height: 28px;
+    }
+
     .config-grid {
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr;
-      /* gap: 10px 0px; */
     }
 
     .config-video-player-grid {
@@ -149,17 +156,20 @@
   }
 </style>
 
-<svelte:head>
-  <title>Slayer Test</title>
-  <meta name="title" content="Slayer Test app" />
-  <meta name="Description" content="Svelte Video player test app" />
-  <meta name="msapplication-TileColor" content="#da532c" />
-  <meta name="theme-color" content="#ffffff" />
-</svelte:head>
-
 <main>
-  <img class="center" src="./svp.svg" height="50" alt="SVP logo" />
-  <h1>Examples</h1>
+  <img class="center" src="./svp_animated.svg" height="50" alt="SVP logo" />
+  <h1>DEMO</h1>
+
+  <div style="min-height:20px; margin-bottom:10px;">
+    <a href="https://npmjs.org/package/svelte-video-player">
+      <img
+        class="center"
+        height="20"
+        src="https://img.shields.io/npm/v/svelte-video-player?style=flat-square"
+        alt="version" />
+    </a>
+  </div>
+
   <p>
     I will here give a brief sketch of the progress of opinion on the Origin of Species. Until recently the great
     majority of naturalists believed that species were immutable productions, and had been separately created. This view
@@ -181,8 +191,16 @@
         ><span>Track Height</span>
         <input type="range" min="4" max="20" bind:value={trackHeight} />
       </label>
+      <label
+        ><span>Border Radius</span>
+        <input type="range" min="0" max="25" bind:value={borderRadius} />
+      </label>
       <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
       <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
+      <label
+        ><span>Skip Seconds</span>
+        <input type="range" min="1" max="20" bind:value={skipSeconds} />
+      </label>
       <label
         ><span>Center Icon Size</span>
         <input type="range" min="40" max="200" bind:value={centerIconSize} />
@@ -201,6 +219,7 @@
       thumbSize="{thumbSize}px"
       trackHeight="{trackHeight}px"
       centerIconSize="{centerIconSize}px"
+      borderRadius="{borderRadius}px"
       {color}
       {playerBgColor}
       {barsBgColor}
@@ -208,7 +227,8 @@
       {focusColor}
       {bufferedColor}
       {chunkBars}
-      {loop} />
+      {loop}
+      {skipSeconds} />
   </div>
 
   <p>
@@ -221,7 +241,7 @@
     made for the sake of this, but it was the result of accident.
   </p>
 
-  <VideoPlayer poster={poster2} source={source2} {playerBgColor} />
+  <VideoPlayer poster={poster2} source={source2} {playerBgColor} chunkBars skipSeconds="3" />
 
   <p>
     And in like manner as to other parts in which there appears to exist an adaptation to an end. Wheresoever,
@@ -230,14 +250,21 @@
     things were not thus constituted, perished and still perish." We here see the principle of natural selection
     shadowed forth, but how little Aristotle fully comprehended the principle, is shown by his remarks on the formation
     of the teeth.), the first author who in modern times has treated it in a scientific spirit was Buffon.
-    <span class="video-player-inline"
-      ><VideoPlayer width="540" height="540" {playerBgColor} poster={poster_kaka} source={source_kaka} loop />
+    <span class="video-player-inline">
+      <VideoPlayer
+        width="540"
+        height={540}
+        {playerBgColor}
+        poster={poster_kaka}
+        source={source_kaka}
+        loop
+        skipSeconds="2" />
     </span>
     But as his opinions fluctuated greatly at different periods, and as he does not enter on the causes or means of the transformation
     of species, I need not here enter on details. Lamarck was the first man whose conclusions on the subject excited much
     attention. This justly celebrated naturalist first published his views in 1801; he much enlarged them in 1809 in his
     "Philosophie Zoologique", and subsequently, 1815, in the Introduction to his "Hist. Nat. des Animaux sans Vertebres".
-    In these works he up holds the doctrine that all species, including man, are descended from other species. He first did
+    In these works he up holds the doctrine that all species, including man, are descended from other species.He first did
     the eminent service of arousing attention to the probability of all change in the organic, as well as in the inorganic
     world, being the result of law, and not of miraculous interposition. Lamarck seems to have been chiefly led to his conclusion
     on the gradual change of species, by the difficulty of distinguishing species and varieties, by the almost perfect gradation
@@ -250,17 +277,23 @@
     generated.
   </p>
   <div class="video-player-grid">
-    <VideoPlayer poster={poster2} source={source2} {playerBgColor} width="960" height="540" />
-    <VideoPlayer {poster} {source} {playerBgColor} width="960" height="540" />
+    <VideoPlayer
+      source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
+      playerBgColor="black"
+      skipSeconds="1.5" />
+    <VideoPlayer
+      poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
+      source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
+      skipSeconds={3}
+      {playerBgColor} />
   </div>
-  <p>
-    (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat.
-    Generale", tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is
-    given of Buffon's conclusions on the same subject. It is curious how largely my grandfather, Dr. Erasmus Darwin,
-    anticipated the views and erroneous grounds of opinion of Lamarck in his "Zoonomia" (vol. i. pages 500-510),
-    published in 1794. According to Isid. Geoffroy there is no doubt that Goethe was an extreme partisan of similar
-    views, as shown in the introduction to a work written in 1794 and 1795, but not published till long afterward; he
-    has pointedly remarked ("Goethe als Naturforscher", von Dr. Karl Meding, s. 34) that the future question for
-    naturalists will be how, for instance, cattle got their horns and not for what they are used.
-  </p>
+  (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat. Generale",
+  tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is given of Buffon's
+  conclusions on the same subject. It is curious how largely my grandfather, Dr. Erasmus Darwin, anticipated the views and
+  erroneous grounds of opinion of Lamarck in his "Zoonomia" (vol. i. pages 500-510), published in 1794. According to Isid.
+  Geoffroy there is no doubt that Goethe was an extreme partisan of similar views, as shown in the introduction to a work
+  written in 1794 and 1795, but not published till long afterward; he has pointedly remarked ("Goethe als Naturforscher",
+  von Dr. Karl Meding, s. 34) that the future question for naturalists will be how, for instance, cattle got their horns
+  and not for what they are used.
+  <p />
 </main>
