@@ -83,7 +83,6 @@
   let currentTime = 0;
   let duration;
   let buffered = []; // [{start, end}]
-  let seekable = []; // [{start, end}]
   let played = []; // [{start, end}]
   let seeking;
   let ended;
@@ -290,7 +289,6 @@
         bind:currentTime
         bind:duration
         bind:buffered
-        bind:seekable
         bind:seeking
         bind:played
         bind:ended
