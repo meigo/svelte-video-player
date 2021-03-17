@@ -26,6 +26,8 @@
   export let borderRadius = '8px';
   export let loop = false;
   export let skipSeconds = 5;
+  export let controlsOnPause = true;
+  export let timeDisplay = false;
 
   $: _width = parseInt(width);
   $: _height = parseInt(height);
@@ -52,7 +54,9 @@
     {borderRadius}
     {loop}
     {skipSeconds}
-    {aspectRatio} />
+    {aspectRatio}
+    {controlsOnPause}
+    {timeDisplay} />
 {:else}
   <VideoPlayerServer {playerBgColor} {borderRadius} {aspectRatio} />
 {/if}

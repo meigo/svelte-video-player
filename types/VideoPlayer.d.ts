@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from "svelte";
+import { SvelteComponentTyped } from 'svelte';
 
 export interface VideoPlayerProps {
   /**
@@ -109,10 +109,18 @@ export interface VideoPlayerProps {
    * @default 5
    */
   skipSeconds?: number | string;
+
+  /**
+   * Show control bar when video is paused
+   * @default true
+   */
+  controlsOnPause?: boolean;
+
+  /**
+   * Display current time beside playbar
+   * @default false
+   */
+  timeDisplay?: boolean;
 }
 
-export default class VideoPlayer extends SvelteComponentTyped<
-  VideoPlayerProps,
-  {},
-  {}
-> {}
+export default class VideoPlayer extends SvelteComponentTyped<VideoPlayerProps, {}, {}> {}

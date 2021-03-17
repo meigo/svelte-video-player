@@ -1,5 +1,6 @@
 <script lang="ts">
   import VideoPlayer from 'svelte-video-player';
+  // import VideoPlayer from '../../src/VideoPlayer.svelte';
 
   const poster: string =
     'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif';
@@ -31,6 +32,8 @@
   let loop: boolean = false;
   let borderRadius: number = 8;
   let skipSeconds: number = 10;
+  let controlsOnPause: boolean = true;
+  let timeDisplay: boolean = false;
 </script>
 
 <style>
@@ -195,8 +198,6 @@
         ><span>Border Radius</span>
         <input type="range" min="0" max="25" bind:value={borderRadius} />
       </label>
-      <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
-      <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
       <label
         ><span>Skip Seconds</span>
         <input type="range" min="1" max="20" bind:value={skipSeconds} />
@@ -205,6 +206,10 @@
         ><span>Center Icon Size</span>
         <input type="range" min="40" max="200" bind:value={centerIconSize} />
       </label>
+      <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
+      <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
+      <label><span>controlsOnPause</span><input type="checkbox" bind:checked={controlsOnPause} /></label>
+      <label><span>timeDisplay</span><input type="checkbox" bind:checked={timeDisplay} /></label>
       <label><span>Color</span><input type="color" bind:value={color} /></label>
       <label><span>Player Bg Color</span><input type="color" bind:value={playerBgColor} /></label>
       <label><span>Bars Bg Color</span><input type="color" bind:value={barsBgColor} /></label>
@@ -228,7 +233,9 @@
       {bufferedColor}
       {chunkBars}
       {loop}
-      {skipSeconds} />
+      {skipSeconds}
+      {controlsOnPause}
+      {timeDisplay} />
   </div>
 
   <p>

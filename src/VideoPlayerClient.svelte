@@ -25,6 +25,7 @@
   import IdleDetector from './IdleDetector.svelte';
   import ScrollDetector from './ScrollDetector.svelte';
   import Spinner from './Spinner.svelte';
+  import Time from './Time.svelte';
 
   //-------------------------------------------------------------------------------------------------------------------
   // PROPS
@@ -49,6 +50,8 @@
   export let loop;
   export let skipSeconds;
   export let aspectRatio;
+  export let controlsOnPause;
+  export let timeDisplay;
 
   $: _sources = prepareVideoSources(source);
   $: _skipSeconds = parseFloat(skipSeconds);
@@ -73,6 +76,8 @@
   $: $config.chunkBars = chunkBars;
   $: $config.loop = loop;
   $: $config.borderRadius = borderRadius;
+  $: $config.controlsOnPause = controlsOnPause;
+  $: $config.timeDisplay = timeDisplay;
 
   //-------------------------------------------------------------------------------------------------------------------
   // VIDEO ELEMENT BINDINGS
@@ -116,7 +121,7 @@
 
   $: isPosterVisible = !isVideoData || (paused && currentTime == 0);
 
-  $: isBottomControlsVisible = isVideoData && (paused || (isPointerOverVideo && !isIdle));
+  $: isBottomControlsVisible = isVideoData && ((paused && controlsOnPause) || (isPointerOverVideo && !isIdle));
 
   $: isSpinnerVisible = seeking || isBuffering;
 
@@ -322,6 +327,9 @@
             bind:paused
             bind:isScrubbing
             on:pointerup={onPlaybarPointerUp} />
+          {#if timeDisplay}
+            <Time {duration} {currentTime} />
+          {/if}
           <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
           <VolumeControl bind:volume />
           {#if isFullscreenEnabled}
