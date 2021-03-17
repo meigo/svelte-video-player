@@ -41,26 +41,28 @@ npm install svelte-video-player
 
 ## Props
 
-| Prop name      | Type                                | Default value          | Description                                                                                                 |
-| :------------- | :---------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
-| width          | <code>string &#124; number</code>   | <code>1920</code>      | Real width of video for calculating aspect ratio for responsive design                                      |
-| height         | <code>string &#124; number</code>   | <code>1080</code>      | Real height of video for calculating aspect ratio for responsive design                                     |
-| poster         | <code>string</code>                 | <code>''</code>        | Absolute or relative URL of poster image                                                                    |
-| source         | <code>string &#124; string[]</code> | <code>''</code>        | Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg` |
-| controlsHeight | <code>string</code>                 | <code>'55px'</code>    | Height of bottom control bar, rescaling included components                                                 |
-| trackHeight    | <code>string</code>                 | <code>'6px'</code>     | Height of playbar and volume slider tracks                                                                  |
-| thumbSize      | <code>string</code>                 | <code>'15px'</code>    | Size of playbar and volume slider thumb                                                                     |
-| centerIconSize | <code>string</code>                 | <code>'60px'</code>    | Size of center icon                                                                                         |
-| playerBgColor  | <code>string</code>                 | <code>'black'</code>   | Color of player background                                                                                  |
-| color          | <code>string</code>                 | <code>'#FF3E00'</code> | Main color of control components                                                                            |
-| focusColor     | <code>string</code>                 | <code>'white'</code>   | Color of focus outlines                                                                                     |
-| barsBgColor    | <code>string</code>                 | <code>'white'</code>   | Background color of playbar and volume slider tracks                                                        |
-| iconColor      | <code>string</code>                 | <code>'white'</code>   | Color of button icons                                                                                       |
-| bufferedColor  | <code>string</code>                 | <code>'#FF9600'</code> | Color of buffered chunks                                                                                    |
-| chunkBars      | <code>boolean</code>                | <code>false</code>     | Display overlay with buffered and played parts of video                                                     |
-| borderRadius   | <code>string</code>                 | <code>'8px'</code>     | Rounded corner radius of the player.                                                                        |
-| loop           | <code>boolean</code>                | <code>false</code>     | Play video in loop                                                                                          |
-| skipSeconds    | <code>string &#124; number</code>   | <code>5</code>         | Skipping time in seconds                                                                                    |
+| Prop name       | Type                                | Default value          | Description                                                                                                 |
+| :-------------- | :---------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| width           | <code>string &#124; number</code>   | <code>1920</code>      | Real width of video for calculating aspect ratio for responsive design                                      |
+| height          | <code>string &#124; number</code>   | <code>1080</code>      | Real height of video for calculating aspect ratio for responsive design                                     |
+| poster          | <code>string</code>                 | <code>''</code>        | Absolute or relative URL of poster image                                                                    |
+| source          | <code>string &#124; string[]</code> | <code>''</code>        | Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg` |
+| controlsHeight  | <code>string</code>                 | <code>'55px'</code>    | Height of bottom control bar, rescaling included components                                                 |
+| trackHeight     | <code>string</code>                 | <code>'6px'</code>     | Height of playbar and volume slider tracks                                                                  |
+| thumbSize       | <code>string</code>                 | <code>'15px'</code>    | Size of playbar and volume slider thumb                                                                     |
+| centerIconSize  | <code>string</code>                 | <code>'60px'</code>    | Size of center icon                                                                                         |
+| playerBgColor   | <code>string</code>                 | <code>'black'</code>   | Color of player background                                                                                  |
+| color           | <code>string</code>                 | <code>'#FF3E00'</code> | Main color of control components                                                                            |
+| focusColor      | <code>string</code>                 | <code>'white'</code>   | Color of focus outlines                                                                                     |
+| barsBgColor     | <code>string</code>                 | <code>'white'</code>   | Background color of playbar and volume slider tracks                                                        |
+| iconColor       | <code>string</code>                 | <code>'white'</code>   | Color of button icons                                                                                       |
+| bufferedColor   | <code>string</code>                 | <code>'#FF9600'</code> | Color of buffered chunks                                                                                    |
+| borderRadius    | <code>string</code>                 | <code>'8px'</code>     | Rounded corner radius of the player.                                                                        |
+| skipSeconds     | <code>string &#124; number</code>   | <code>5</code>         | Skipping time in seconds                                                                                    |
+| chunkBars       | <code>boolean</code>                | <code>false</code>     | Display overlay with buffered and played parts of video                                                     |
+| loop            | <code>boolean</code>                | <code>false</code>     | Play video in loop                                                                                          |
+| controlsOnPause | <code>boolean</code>                | <code>true</code>      | Show control bar when video is paused                                                                       |
+| timeDisplay     | <code>boolean</code>                | <code>false</code>     | Display current time beside playbar                                                                         |
 
 ## Usage
 
