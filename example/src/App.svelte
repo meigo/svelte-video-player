@@ -33,7 +33,7 @@
   let borderRadius: number = 8;
   let skipSeconds: number = 10;
   let controlsOnPause: boolean = true;
-  let timeDisplay: boolean = false;
+  let timeDisplay: boolean = true;
 </script>
 
 <style>
@@ -208,8 +208,8 @@
       </label>
       <label><span>Chunk Bars</span><input type="checkbox" bind:checked={chunkBars} /></label>
       <label><span>Loop</span><input type="checkbox" bind:checked={loop} /></label>
-      <label><span>controlsOnPause</span><input type="checkbox" bind:checked={controlsOnPause} /></label>
-      <label><span>timeDisplay</span><input type="checkbox" bind:checked={timeDisplay} /></label>
+      <label><span>Controls On Pause</span><input type="checkbox" bind:checked={controlsOnPause} /></label>
+      <label><span>Time Display</span><input type="checkbox" bind:checked={timeDisplay} /></label>
       <label><span>Color</span><input type="color" bind:value={color} /></label>
       <label><span>Player Bg Color</span><input type="color" bind:value={playerBgColor} /></label>
       <label><span>Bars Bg Color</span><input type="color" bind:value={barsBgColor} /></label>
