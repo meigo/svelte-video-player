@@ -824,10 +824,10 @@ svelte-preprocess@^4.0.0:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte-video-player@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/svelte-video-player/-/svelte-video-player-1.1.9.tgz#f6db697ec9b817f05037546a1427c106159128be"
-  integrity sha512-THoObMH8OY4+Z43dkyNgNxSA+pKUTM9jzB3woUo6HbUPM3tU+5Scb8ZJkDCXFxec+CyeuAySzI8PDKflur4USg==
+svelte-video-player@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/svelte-video-player/-/svelte-video-player-1.2.3.tgz#c84fd330450da25a68e0815fed89bd3e2478e9cf"
+  integrity sha512-QS0T1J3/JSIscqYZNfFLWdkA9G6Llx7Mw2UXPUzBKEfrZrbTC/HiIAWXCQFg3/AafnO6W9fvGT6pnosa42B/Cg==
 
 svelte@^3.31.2:
   version "3.31.2"
