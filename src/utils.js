@@ -2,7 +2,6 @@ export function extensionToMimeType(filename) {
   const mimes = { mp4: 'video/mp4', ogv: 'video/ogg', webm: 'video/webm' };
   const ext = (filename.match(/\.([^.]*?)(?=\?|#|$)/) || [])[1];
   if (ext in mimes) return mimes[ext];
-  console.error(`Unsupported source file type: "${ext}"`);
   return;
 }
 
@@ -14,12 +13,12 @@ export function prepareVideoSources(source) {
     sources = source
       .map((item) => {
         const type = extensionToMimeType(item);
-        if (type) return { src: item, type };
+        return typeof type === 'undefined' ? { src: item } : { src: item, type };
       })
       .filter((item) => item);
   } else {
     const type = extensionToMimeType(source);
-    sources = [{ src: source, type }];
+    sources = typeof type === 'undefined' ? [{ src: source }] : [{ src: source, type }];
   }
   return sources;
 }
