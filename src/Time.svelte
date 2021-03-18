@@ -34,13 +34,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 5px;
+    margin-right: 6px;
   }
   .text {
     position: relative;
+    font-family: 'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono', monospace;
     font-size: 1rem;
     line-height: 1rem;
-    letter-spacing: 0.02rem;
     color: white;
   }
 </style>
