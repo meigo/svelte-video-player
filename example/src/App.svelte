@@ -24,7 +24,7 @@
   let centerIconSize: number = 60;
   let color: string = '#FF3E00';
   let bufferedColor: string = '#FF9600';
-  let playerBgColor: string = '#F1DFC0';
+  let playerBgColor: string = '#EEEEEE';
   let barsBgColor: string = '#FFFFFF';
   let focusColor: string = '#FFFFFF';
   let iconColor: string = '#FFFFFF';
