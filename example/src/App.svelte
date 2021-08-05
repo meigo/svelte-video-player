@@ -3,17 +3,17 @@
   // import VideoPlayer from '../../src/VideoPlayer.svelte';
 
   const poster: string =
-    'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif';
+    'https://res.cloudinary.com/dvm02rtnk/image/upload/c_scale,w_1024,q_auto/v1628058523/blender/HERO_Blender_Grease_Pencil_Showcase_g86hfo.jpg';
   const source: string[] = [
-    'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608783907/xixhbu5v9aawqqgiafri.mp4',
-    'https://res.cloudinary.com/animaly/video/upload/ac_vorbis,vc_vp8/v1608783907/xixhbu5v9aawqqgiafri.webm',
-    'https://res.cloudinary.com/animaly/video/upload/ac_vorbis,vc_theora/v1608783907/xixhbu5v9aawqqgiafri.ogv',
+    'https://res.cloudinary.com/dvm02rtnk/video/upload/v1628057414/blender/HERO_Blender_Grease_Pencil_Showcase_1080p_ctsjpy.mp4',
+    'https://res.cloudinary.com/dvm02rtnk/video/upload/v1628057414/blender/HERO_Blender_Grease_Pencil_Showcase_1080p_ctsjpy.webm',
+    'https://res.cloudinary.com/dvm02rtnk/video/upload/v1628057414/blender/HERO_Blender_Grease_Pencil_Showcase_1080p_ctsjpy.ogv',
   ];
 
   const poster2: string =
-    'https://res.cloudinary.com/animaly/image/upload/c_scale,h_540,q_auto:good,w_960/v1608521485/y8aqxjo6uur4tltpwwkd.jpg';
+    'https://res.cloudinary.com/dvm02rtnk/image/upload/c_scale,w_1024,q_auto:good/v1628058523/blender/Agent_327__Operation_Barbershop_dbyrdi.jpg';
   const source2: string =
-    'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608443340/o98djzz6ecq3nfhz84rr.mp4';
+    'https://res.cloudinary.com/dvm02rtnk/video/upload/v1628057411/blender/Agent_327_Operation_Barbershop_1080p_hf1iq7.mp4';
 
   const poster_kaka: string = './kaka_walk.jpg';
   const source_kaka: string[] = ['./kaka_walk.mp4'];
@@ -38,7 +38,7 @@
 
 <style>
   :global(body) {
-    background-color: #fbf3e6;
+    background-color: #ffffff;
   }
 
   main {
@@ -81,8 +81,9 @@
   .config {
     position: relative;
     font-size: 75%;
-    margin-bottom: 20px;
-    margin-right: 20px;
+    background-color: rgb(245, 245, 245);
+    padding-top: 1rem;
+    border-radius: 5px;
   }
 
   .config label {
@@ -126,21 +127,12 @@
   }
 
   @media (min-width: 640px) {
-    .config label {
-      min-height: 28px;
-    }
-
     .config-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-    }
-
-    .config-video-player-grid {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr;
       gap: 0px 10px;
+      justify-items: center;
     }
 
     .video-player-grid {
@@ -180,6 +172,27 @@
     undergo modification, and that the existing forms of life are the descendants by true generation of pre existing
     forms.
   </p>
+  <VideoPlayer
+    width="2048"
+    height="858"
+    {poster}
+    {source}
+    controlsHeight="{controlsHeight}px"
+    thumbSize="{thumbSize}px"
+    trackHeight="{trackHeight}px"
+    centerIconSize="{centerIconSize}px"
+    borderRadius="{borderRadius}px"
+    {color}
+    {playerBgColor}
+    {barsBgColor}
+    {iconColor}
+    {focusColor}
+    {bufferedColor}
+    {chunkBars}
+    {loop}
+    {skipSeconds}
+    {controlsOnPause}
+    {timeDisplay} />
   <div class="config-video-player-grid">
     <div class="config config-grid">
       <label
@@ -217,25 +230,6 @@
       <label><span>Focus Color</span><input type="color" bind:value={focusColor} /></label>
       <label><span>Buffered Color</span><input type="color" bind:value={bufferedColor} /></label>
     </div>
-    <VideoPlayer
-      {poster}
-      {source}
-      controlsHeight="{controlsHeight}px"
-      thumbSize="{thumbSize}px"
-      trackHeight="{trackHeight}px"
-      centerIconSize="{centerIconSize}px"
-      borderRadius="{borderRadius}px"
-      {color}
-      {playerBgColor}
-      {barsBgColor}
-      {iconColor}
-      {focusColor}
-      {bufferedColor}
-      {chunkBars}
-      {loop}
-      {skipSeconds}
-      {controlsOnPause}
-      {timeDisplay} />
   </div>
 
   <p>
@@ -248,7 +242,7 @@
     made for the sake of this, but it was the result of accident.
   </p>
 
-  <VideoPlayer poster={poster2} source={source2} {playerBgColor} chunkBars skipSeconds="3" />
+  <VideoPlayer width="1920" height="804" poster={poster2} source={source2} {playerBgColor} chunkBars skipSeconds="3" />
 
   <p>
     And in like manner as to other parts in which there appears to exist an adaptation to an end. Wheresoever,
@@ -283,24 +277,31 @@
     to account for the existence at the present day of simple productions, he maintains that such forms are now spontaneously
     generated.
   </p>
+
   <div class="video-player-grid">
     <VideoPlayer
-      source="https://test-videos.co.uk/vids/sintel/mp4/av1/1080/Sintel_1080_10s_1MB.mp4"
+      width="1920"
+      height="804"
+      poster="https://res.cloudinary.com/dvm02rtnk/image/upload/c_scale,q_auto,w_1024/v1628058523/blender/Spring_-_Blender_Open_Movie_dah072.jpg"
+      source="https://res.cloudinary.com/dvm02rtnk/video/upload/w_1024,q_auto/v1628057422/blender/Spring_Blender_Open_Movie_1080p_nmkckb.mp4"
       playerBgColor="black"
       skipSeconds="1.5" />
     <VideoPlayer
-      poster="https://test-videos.co.uk/user/pages/images/big_buck_bunny.jpg"
-      source="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4"
+      width="1920"
+      height="804"
+      poster="https://res.cloudinary.com/dvm02rtnk/image/upload/c_scale,q_auto,w_1024/v1628058523/blender/Coffee_Run_-_Blender_Open_Movie_pkw8vs.jpg"
+      source="https://res.cloudinary.com/dvm02rtnk/video/upload/w_1024,q_auto/v1628059304/blender/Coffee_Run_Blender_Open_Movie_1080p_bj9v97.mp4"
       skipSeconds={3}
       {playerBgColor} />
   </div>
-  (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat. Generale",
-  tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is given of Buffon's
-  conclusions on the same subject. It is curious how largely my grandfather, Dr. Erasmus Darwin, anticipated the views and
-  erroneous grounds of opinion of Lamarck in his "Zoonomia" (vol. i. pages 500-510), published in 1794. According to Isid.
-  Geoffroy there is no doubt that Goethe was an extreme partisan of similar views, as shown in the introduction to a work
-  written in 1794 and 1795, but not published till long afterward; he has pointedly remarked ("Goethe als Naturforscher",
-  von Dr. Karl Meding, s. 34) that the future question for naturalists will be how, for instance, cattle got their horns
-  and not for what they are used.
+
+  (I have taken the date of the first publication of Lamarck from Isidore Geoffroy Saint- Hilaire's ("Hist. Nat.
+  Generale", tom. ii. page 405, 1859) excellent history of opinion on this subject. In this work a full account is given
+  of Buffon's conclusions on the same subject. It is curious how largely my grandfather, Dr. Erasmus Darwin, anticipated
+  the views and erroneous grounds of opinion of Lamarck in his "Zoonomia" (vol. i. pages 500-510), published in 1794.
+  According to Isid. Geoffroy there is no doubt that Goethe was an extreme partisan of similar views, as shown in the
+  introduction to a work written in 1794 and 1795, but not published till long afterward; he has pointedly remarked
+  ("Goethe als Naturforscher", von Dr. Karl Meding, s. 34) that the future question for naturalists will be how, for
+  instance, cattle got their horns and not for what they are used.
   <p />
 </main>
