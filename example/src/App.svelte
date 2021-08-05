@@ -283,7 +283,7 @@
       width="1920"
       height="804"
       poster="https://res.cloudinary.com/dvm02rtnk/image/upload/c_scale,q_auto,w_1024/v1628058523/blender/Spring_-_Blender_Open_Movie_dah072.jpg"
-      source="https://res.cloudinary.com/dvm02rtnk/video/upload/w_1024,q_auto/v1628057422/blender/Spring_Blender_Open_Movie_1080p_nmkckb.mp4"
+      source="https://res.cloudinary.com/dvm02rtnk/video/upload/v1628057422/blender/Spring_Blender_Open_Movie_1080p_nmkckb.mp4"
       playerBgColor="black"
       skipSeconds="1.5" />
     <VideoPlayer
