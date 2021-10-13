@@ -52,6 +52,7 @@
   export let aspectRatio;
   export let controlsOnPause;
   export let timeDisplay;
+  export let getTime;
 
   $: _sources = prepareVideoSources(source);
   $: _skipSeconds = parseFloat(skipSeconds);
@@ -328,7 +329,7 @@
             bind:isScrubbing
             on:pointerup={onPlaybarPointerUp} />
           {#if timeDisplay}
-            <Time {duration} {currentTime} />
+            <Time {getTime} {duration} {currentTime} />
           {/if}
           <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
           <VolumeControl bind:volume />
