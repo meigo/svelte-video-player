@@ -15,6 +15,7 @@
   const setTime = throttle(
     () => {
       ft = formatTime(currentTime, hours);
+      getTime && getTime(ft);
     },
     250,
     true
