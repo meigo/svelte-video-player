@@ -24,7 +24,7 @@
   <div
     class="player-icon"
     style="background-color:{$cfg.color}; border-color:{$cfg.focusColor};"
-    transition:fade={{ duration: 500 }}>
+    transition:fade|local={{ duration: 500 }}>
     <PlayPauseIcon paused />
   </div>
 {/if}
