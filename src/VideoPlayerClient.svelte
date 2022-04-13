@@ -52,7 +52,11 @@
   export let aspectRatio;
   export let controlsOnPause;
   export let timeDisplay;
-
+  export let noKeyboardControl;
+  export let noFullScreen;
+  export let noVolumeControl;
+  export let volume;
+  
   $: _sources = prepareVideoSources(source);
   $: _skipSeconds = parseFloat(skipSeconds);
 
@@ -78,6 +82,10 @@
   $: $config.borderRadius = borderRadius;
   $: $config.controlsOnPause = controlsOnPause;
   $: $config.timeDisplay = timeDisplay;
+  $: $config.noKeyboardControl = noKeyboardControl;
+  $: $config.noFullScreen = noFullScreen;
+  $: $config.noVolumeControl = noVolumeControl;
+  $: $config.volume = volume;
 
   //-------------------------------------------------------------------------------------------------------------------
   // VIDEO ELEMENT BINDINGS
@@ -92,7 +100,6 @@
   let seeking;
   let ended;
   let paused = true;
-  let volume = 1;
   let muteVolume = 1;
 
   $: muted = volume == 0;
@@ -269,8 +276,8 @@
 <!--------------------------------------------------------------------------------------------------------------------
  MARKUP
  --------------------------------------------------------------------------------------------------------------------->
-
-<svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
+  
+<svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} disabled={noKeyboardControl} />
 
 <div
   class="aspect"
@@ -330,8 +337,11 @@
           {#if timeDisplay}
             <Time {duration} {currentTime} />
           {/if}
-          <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
-          <VolumeControl bind:volume />
+          
+          {#if !noVolumeControl}
+            <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
+            <VolumeControl bind:volume />
+          {/if}
           {#if isFullscreenEnabled}
             <FullscreenButton on:pointerup={onFullscreenButtonPointerUp} {isFullscreen} />
           {/if}
@@ -352,6 +362,8 @@
   <IdleDetector bind:isIdle />
 
   <ScrollDetector bind:isScrolling />
-
-  <FullscreenManager element={videoPlayerElement} bind:isFullscreenEnabled bind:isFullscreen />
+  
+  {#if !noFullScreen}
+    <FullscreenManager element={videoPlayerElement} bind:isFullscreenEnabled bind:isFullscreen />
+  {/if}
 </div>
