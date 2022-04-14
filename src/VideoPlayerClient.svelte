@@ -169,6 +169,7 @@
   //-------------------------------------------------------------------------------------------------------------------
 
   function onWindowKeyDown(e) {
+    if(noKeyboardControl) return;
     if (currentVideo !== videoElement) return;
     switch (e.code) {
       case 'Tab':
@@ -197,6 +198,7 @@
   }
 
   function onWindowKeyUp(e) {
+    if(noKeyboardControl) return;
     if (currentVideo !== videoElement) return;
     isKeyDown = false;
   }
