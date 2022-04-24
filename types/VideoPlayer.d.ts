@@ -121,6 +121,26 @@ export interface VideoPlayerProps {
    * @default false
    */
   timeDisplay?: boolean;
+
+  /**
+   * Disables the default event handlers for keyboard event
+   */
+  noKeyboardControl?: boolean;
+
+  /**
+   * Hides the full screen button
+   */
+  noFullScreen?: boolean;
+  
+  /**
+   * Hides the volume slider & mute button
+   */
+  noVolumeControl: boolean;
+
+  /**
+   * Sets the volume level
+   */
+  volume?: number;
 }
 
 export default class VideoPlayer extends SvelteComponentTyped<VideoPlayerProps, {}, {}> {}
