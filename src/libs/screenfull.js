@@ -8,6 +8,7 @@
 
   var document = typeof window !== 'undefined' && typeof window.document !== 'undefined' ? window.document : {};
   var isCommonjs = typeof module !== 'undefined' && module.exports;
+  var isClient = typeof window !== 'undefined' ? true : false;
 
   var fn = (function () {
     var val;
@@ -150,7 +151,7 @@
   if (!fn) {
     if (isCommonjs) {
       module.exports = { isEnabled: false };
-    } else {
+    } else if (isClient) {
       window.screenfull = { isEnabled: false };
     }
 
@@ -180,7 +181,7 @@
 
   if (isCommonjs) {
     module.exports = screenfull;
-  } else {
+  } else if (isClient) {
     window.screenfull = screenfull;
   }
 })();
