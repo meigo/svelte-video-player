@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from 'svelte';
+import { SvelteComponent } from 'svelte';
 
 export interface VideoPlayerProps {
   /**
@@ -123,4 +123,4 @@ export interface VideoPlayerProps {
   timeDisplay?: boolean;
 }
 
-export default class VideoPlayer extends SvelteComponentTyped<VideoPlayerProps, {}, {}> {}
+export default class VideoPlayer extends SvelteComponent<VideoPlayerProps, {}, {}> {}
