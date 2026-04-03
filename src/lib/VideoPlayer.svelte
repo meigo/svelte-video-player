@@ -18,6 +18,7 @@
 		barsBgColor?: string;
 		iconColor?: string;
 		borderRadius?: string;
+		borderColor?: string;
 		buttonBorderRadius?: string;
 		loop?: boolean;
 		autoplay?: boolean;
@@ -49,6 +50,7 @@
 		barsBgColor = 'white',
 		iconColor = 'white',
 		borderRadius = '8px',
+		borderColor = 'none',
 		buttonBorderRadius = '50%',
 		loop = false,
 		autoplay = false,
@@ -88,6 +90,7 @@
 		{barsBgColor}
 		{iconColor}
 		{borderRadius}
+		{borderColor}
 		{buttonBorderRadius}
 		{loop}
 		{autoplay}

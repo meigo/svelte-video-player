@@ -21,7 +21,7 @@
 
 A video player component for Svelte 5 with HLS/DASH streaming, subtitles, picture-in-picture, playback rate control, quality selection, and Media Session API support.
 
-Controls are keyboard-accessible and respond to key presses. Starting a player pauses any previously playing instance. Fullscreen is disabled on iPhone but works smoothly on other mobile and desktop browsers.
+Controls are fully keyboard-accessible. Starting a player pauses any previously playing instance. Fullscreen is disabled on iPhone but works on other mobile and desktop browsers.
 
 ## Demo
 
@@ -78,12 +78,27 @@ DASH streams are auto-detected from `.mpd` URLs. [dashjs](https://github.com/Das
 
 ### Subtitles / Captions
 
+A CC toggle button appears automatically when tracks are provided. Track selection is available in the settings menu. The `crossorigin` attribute is set automatically when tracks are present.
+
 ```svelte
 <VideoPlayer
   source="video.mp4"
   tracks={[
     { src: '/subs/en.vtt', srclang: 'en', label: 'English', default: true },
     { src: '/subs/es.vtt', srclang: 'es', label: 'Spanish' }
+  ]}
+/>
+```
+
+### Chapters
+
+```svelte
+<VideoPlayer
+  source="video.mp4"
+  chapters={[
+    { time: 0, label: 'Intro' },
+    { time: 60, label: 'Chapter 1' },
+    { time: 180, label: 'Chapter 2' }
   ]}
 />
 ```
@@ -113,11 +128,17 @@ Integrate with the browser's Media Session API for OS-level media controls:
 | `poster` | `string` | `''` | Poster image URL |
 | `source` | `string \| string[]` | `''` | Video source URL(s) — supports `mp4`, `webm`, `ogg`, `m3u8`, `mpd` |
 | `loop` | `boolean` | `false` | Loop playback |
+| `autoplay` | `boolean` | `false` | Autoplay on load |
+| `playsinline` | `boolean` | `true` | Play inline on mobile |
+| `preload` | `string` | `'metadata'` | Preload behavior (`none`, `metadata`, `auto`) |
+| `crossorigin` | `string` | `undefined` | CORS mode (auto-set to `anonymous` when tracks are provided) |
 | `skipSeconds` | `number \| string` | `5` | Seconds to skip with arrow keys |
 | `controlsOnPause` | `boolean` | `true` | Show controls when paused |
-| `timeDisplay` | `boolean` | `false` | Show current time / duration |
-| `chunkBars` | `boolean` | `false` | Show buffered and played chunks on progress bar |
+| `timeDisplay` | `boolean` | `true` | Show current time / duration |
+| `remainingTime` | `boolean` | `false` | Show remaining time instead of current time |
+| `playbackRateControl` | `boolean` | `true` | Enable playback rate control in settings menu |
 | `tracks` | `TextTrackConfig[]` | `[]` | Subtitle/caption tracks |
+| `chapters` | `Chapter[]` | `[]` | Chapter markers on the progress bar |
 | `mediaSession` | `MediaSessionConfig` | `undefined` | Media Session API metadata |
 
 ### Styling props
@@ -129,22 +150,23 @@ Integrate with the browser's Media Session API for OS-level media controls:
 | `iconColor` | `string` | `'white'` | Button icon color |
 | `focusColor` | `string` | `'white'` | Focus outline color |
 | `barsBgColor` | `string` | `'white'` | Track background color |
-| `bufferedColor` | `string` | `'#FF9600'` | Buffered chunk color |
+| `borderColor` | `string` | `'none'` | Player border color (set to a color value to show border) |
 | `controlsHeight` | `string` | `'55px'` | Height of bottom control bar |
-| `trackHeight` | `string` | `'6px'` | Height of playbar and volume tracks |
+| `trackHeight` | `string` | `'4px'` | Height of playbar and volume tracks |
 | `thumbSize` | `string` | `'15px'` | Size of slider thumbs |
 | `centerIconSize` | `string` | `'60px'` | Size of center play icon |
 | `borderRadius` | `string` | `'8px'` | Player corner radius |
+| `buttonBorderRadius` | `string` | `'50%'` | Button corner radius |
 
 ## Keyboard shortcuts
 
 | Key | Action |
 |:----|:-------|
-| Space / K | Play / Pause |
+| Space | Play / Pause |
 | Left / Right arrow | Skip backward / forward |
-| Up / Down arrow | Volume up / down |
-| M | Mute / Unmute |
-| F | Toggle fullscreen |
+| Tab | Navigate controls |
+| Enter / Space | Activate focused control |
+| Escape | Close settings menu |
 | < / > | Decrease / Increase playback rate |
 
 ## SSR

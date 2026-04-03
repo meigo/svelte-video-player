@@ -47,6 +47,7 @@
 		barsBgColor: string;
 		iconColor: string;
 		borderRadius: string;
+		borderColor: string;
 		buttonBorderRadius: string;
 		loop: boolean;
 		autoplay: boolean;
@@ -79,6 +80,7 @@
 		barsBgColor,
 		iconColor,
 		borderRadius,
+		borderColor,
 		buttonBorderRadius,
 		loop,
 		autoplay,
@@ -98,6 +100,7 @@
 
 	let _sources = $derived(prepareVideoSources(source));
 	let _skipSeconds = $derived(parseFloat(String(skipSeconds)));
+	let _crossorigin = $derived(crossorigin ?? (tracks.length > 0 ? 'anonymous' : undefined));
 	let _aspectRatio = $state(0);
 
 	// Update aspect ratio from prop when video hasn't loaded yet
@@ -402,6 +405,7 @@
 	}
 
 	.aspect {
+		box-sizing: border-box;
 		position: relative;
 		width: 100%;
 		height: 0;
@@ -433,7 +437,7 @@
 	class="aspect"
 	role="region"
 	aria-label="Video player"
-	style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}"
+	style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}; {borderColor !== 'none' ? `border: 2px solid ${borderColor}` : ''}"
 >
 	{#await preloadImage(poster)}
 		<div>
@@ -469,7 +473,7 @@
 				onwaiting={onVideoWaiting}
 				preload={preload}
 				autoplay={autoplay}
-				crossorigin={crossorigin}
+				crossorigin={_crossorigin}
 				playsinline={playsinline}
 			>
 				{#each tracks as track (track.src)}
