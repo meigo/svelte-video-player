@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./svp_animated.svg" alt="svp" width="200" alt="SVP logo" />
+  <img src="./svp_animated.svg" alt="SVP logo" width="200" />
 </div>
 
 <div align="center">
@@ -19,13 +19,9 @@
 
 # Svelte Video Player
 
-## Basic video player component for svelte, sapper and legacy apps.
+A video player component for Svelte 5 with HLS/DASH streaming, subtitles, picture-in-picture, playback rate control, quality selection, and Media Session API support.
 
-Controls are tabbable and respond to key presses (enter/space/arrows) where applicable.
-
-Starting a player will pause previously playing video player instance.
-
-Fullscreen functionality is disabled on iPhone, other than that should function fairly smoothly in both desktop and mobile browsers.
+Controls are keyboard-accessible and respond to key presses. Starting a player pauses any previously playing instance. Fullscreen is disabled on iPhone but works smoothly on other mobile and desktop browsers.
 
 ## Demo
 
@@ -34,99 +30,127 @@ https://svelte-video-player.netlify.app/
 ## Installation
 
 ```bash
-yarn add svelte-video-player
-# OR
 npm install svelte-video-player
+```
+
+Requires Svelte 5.
+
+## Usage
+
+Provide `width` and `height` props matching the video's real dimensions to calculate the correct aspect ratio and prevent [CLS](https://web.dev/cls/). The player's actual size is determined by its parent element.
+
+```svelte
+<script>
+  import VideoPlayer from 'svelte-video-player';
+</script>
+
+<VideoPlayer
+  poster="https://example.com/poster.jpg"
+  source="https://example.com/video.mp4"
+/>
+```
+
+### Multiple sources
+
+Pass an array to provide fallback formats:
+
+```svelte
+<VideoPlayer
+  source={['video.mp4', 'video.webm']}
+/>
+```
+
+### HLS streaming
+
+HLS streams are auto-detected from `.m3u8` URLs. [hls.js](https://github.com/video-dev/hls.js) is lazy-loaded only when needed.
+
+```svelte
+<VideoPlayer source="https://example.com/stream.m3u8" />
+```
+
+### DASH streaming
+
+DASH streams are auto-detected from `.mpd` URLs. [dashjs](https://github.com/Dash-Industry-Forum/dash.js) is lazy-loaded only when needed.
+
+```svelte
+<VideoPlayer source="https://example.com/stream.mpd" />
+```
+
+### Subtitles / Captions
+
+```svelte
+<VideoPlayer
+  source="video.mp4"
+  tracks={[
+    { src: '/subs/en.vtt', srclang: 'en', label: 'English', default: true },
+    { src: '/subs/es.vtt', srclang: 'es', label: 'Spanish' }
+  ]}
+/>
+```
+
+### Media Session
+
+Integrate with the browser's Media Session API for OS-level media controls:
+
+```svelte
+<VideoPlayer
+  source="video.mp4"
+  mediaSession={{
+    title: 'My Video',
+    artist: 'Author',
+    album: 'Collection',
+    artwork: [{ src: '/art.jpg', sizes: '512x512', type: 'image/jpeg' }]
+  }}
+/>
 ```
 
 ## Props
 
-| Prop name       | Type                                | Default value          | Description                                                                                                 |
-| :-------------- | :---------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
-| width           | <code>string &#124; number</code>   | <code>1920</code>      | Real width of video for calculating aspect ratio for responsive design                                      |
-| height          | <code>string &#124; number</code>   | <code>1080</code>      | Real height of video for calculating aspect ratio for responsive design                                     |
-| poster          | <code>string</code>                 | <code>''</code>        | Absolute or relative URL of poster image                                                                    |
-| source          | <code>string &#124; string[]</code> | <code>''</code>        | Absolute or relative URL (or array of those) of video source. Supported formats are `webm`, `mp4` and `ogg` |
-| controlsHeight  | <code>string</code>                 | <code>'55px'</code>    | Height of bottom control bar, rescaling included components                                                 |
-| trackHeight     | <code>string</code>                 | <code>'6px'</code>     | Height of playbar and volume slider tracks                                                                  |
-| thumbSize       | <code>string</code>                 | <code>'15px'</code>    | Size of playbar and volume slider thumb                                                                     |
-| centerIconSize  | <code>string</code>                 | <code>'60px'</code>    | Size of center icon                                                                                         |
-| playerBgColor   | <code>string</code>                 | <code>'black'</code>   | Color of player background                                                                                  |
-| color           | <code>string</code>                 | <code>'#FF3E00'</code> | Main color of control components                                                                            |
-| focusColor      | <code>string</code>                 | <code>'white'</code>   | Color of focus outlines                                                                                     |
-| barsBgColor     | <code>string</code>                 | <code>'white'</code>   | Background color of playbar and volume slider tracks                                                        |
-| iconColor       | <code>string</code>                 | <code>'white'</code>   | Color of button icons                                                                                       |
-| bufferedColor   | <code>string</code>                 | <code>'#FF9600'</code> | Color of buffered chunks                                                                                    |
-| borderRadius    | <code>string</code>                 | <code>'8px'</code>     | Rounded corner radius of the player.                                                                        |
-| skipSeconds     | <code>string &#124; number</code>   | <code>5</code>         | Skipping time in seconds                                                                                    |
-| chunkBars       | <code>boolean</code>                | <code>false</code>     | Display overlay with buffered and played parts of video                                                     |
-| loop            | <code>boolean</code>                | <code>false</code>     | Play video in loop                                                                                          |
-| controlsOnPause | <code>boolean</code>                | <code>true</code>      | Show control bar when video is paused                                                                       |
-| timeDisplay     | <code>boolean</code>                | <code>false</code>     | Display current time beside playbar                                                                         |
+| Prop | Type | Default | Description |
+|:-----|:-----|:--------|:------------|
+| `width` | `number \| string` | `1920` | Real video width for aspect ratio calculation |
+| `height` | `number \| string` | `1080` | Real video height for aspect ratio calculation |
+| `poster` | `string` | `''` | Poster image URL |
+| `source` | `string \| string[]` | `''` | Video source URL(s) — supports `mp4`, `webm`, `ogg`, `m3u8`, `mpd` |
+| `loop` | `boolean` | `false` | Loop playback |
+| `skipSeconds` | `number \| string` | `5` | Seconds to skip with arrow keys |
+| `controlsOnPause` | `boolean` | `true` | Show controls when paused |
+| `timeDisplay` | `boolean` | `false` | Show current time / duration |
+| `chunkBars` | `boolean` | `false` | Show buffered and played chunks on progress bar |
+| `tracks` | `TextTrackConfig[]` | `[]` | Subtitle/caption tracks |
+| `mediaSession` | `MediaSessionConfig` | `undefined` | Media Session API metadata |
 
-## Usage
+### Styling props
 
-If aspect ratio of the video is other than default 16:9 provide `width` and `height` props to player for calculating aspect ratio to prevent [CLS](https://web.dev/cls/).
-Real size of video player will be determined by it's parent element.
+| Prop | Type | Default | Description |
+|:-----|:-----|:--------|:------------|
+| `color` | `string` | `'#FF3E00'` | Main color of controls |
+| `playerBgColor` | `string` | `'black'` | Player background color |
+| `iconColor` | `string` | `'white'` | Button icon color |
+| `focusColor` | `string` | `'white'` | Focus outline color |
+| `barsBgColor` | `string` | `'white'` | Track background color |
+| `bufferedColor` | `string` | `'#FF9600'` | Buffered chunk color |
+| `controlsHeight` | `string` | `'55px'` | Height of bottom control bar |
+| `trackHeight` | `string` | `'6px'` | Height of playbar and volume tracks |
+| `thumbSize` | `string` | `'15px'` | Size of slider thumbs |
+| `centerIconSize` | `string` | `'60px'` | Size of center play icon |
+| `borderRadius` | `string` | `'8px'` | Player corner radius |
 
-### Import directly to svelte or sapper apps
+## Keyboard shortcuts
 
-See [Example App.svelte](./example/src/App.svelte).
+| Key | Action |
+|:----|:-------|
+| Space / K | Play / Pause |
+| Left / Right arrow | Skip backward / forward |
+| Up / Down arrow | Volume up / down |
+| M | Mute / Unmute |
+| F | Toggle fullscreen |
+| < / > | Decrease / Increase playback rate |
 
-```html
-<script>
-  import VideoPlayer from 'svelte-video-player';
+## SSR
 
-  const poster = 'https://www.server.com/poster.jpg';
-  const source = [
-    'https://www.server.com/video.webm',
-    'https://www.server.com/video.mp4',
-    'https://www.server.com/video.ogv',
-  ];
-</script>
+The component renders a server-side placeholder matching the video's aspect ratio. The full player hydrates on the client.
 
-<VideoPlayer {poster} {source} />;
-```
+## License
 
-```js
-<VideoPlayer poster="poster_url" source="video_url" />
-```
-
-```js
-<VideoPlayer width="500" height="500" poster="./local_poster.jpg" source="./local_video.mp4" loop />
-```
-
-### For legacy apps load prebuilt script and stylesheet from unpkg.com
-
-Example: https://codepen.io/meigo-kukk/pen/yLVMZBO
-
-```html
-<html>
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/svelte-video-player@latest/dist/svelte-video-player.css" />
-    <script src="https://unpkg.com/svelte-video-player@latest/dist/svelte-video-player.js"></script>
-
-    <script>
-      function initPlayer() {
-        let player = new VideoPlayer({
-          target: document.getElementById('player'),
-          props: {
-            poster:
-              'https://res.cloudinary.com/animaly/image/upload/c_scale,w_960/v1608783923/ntiiorkrkxba6kmooa4u.gif',
-            source:
-              'https://res.cloudinary.com/animaly/video/upload/ac_aac,vc_h264/v1608783907/xixhbu5v9aawqqgiafri.mp4',
-            controlsHeight: '55px',
-            centerIconSize: '60px',
-            color: 'deepskyblue',
-          },
-        });
-      }
-    </script>
-  </head>
-  <body onload="initPlayer()" style="background-color:#333">
-    <div style="max-width: 600px; margin: 0 auto;">
-      <div id="player" />
-    </div>
-  </body>
-</html>
-```
+[MIT](LICENSE)
