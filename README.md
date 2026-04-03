@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./svp_animated.svg" alt="SVP logo" width="200" />
+  <img src="https://raw.githubusercontent.com/meigo/svelte-video-player/master/svp_animated.svg" alt="SVP logo" width="200" />
 </div>
 
 <div align="center">
