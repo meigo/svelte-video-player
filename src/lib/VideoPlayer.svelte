@@ -18,6 +18,7 @@
 		barsBgColor?: string;
 		iconColor?: string;
 		borderRadius?: string;
+		buttonBorderRadius?: string;
 		loop?: boolean;
 		autoplay?: boolean;
 		skipSeconds?: number | string;
@@ -39,7 +40,7 @@
 		poster = '',
 		source = '',
 		controlsHeight = '55px',
-		trackHeight = '6px',
+		trackHeight = '4px',
 		thumbSize = '15px',
 		centerIconSize = '60px',
 		playerBgColor = 'black',
@@ -48,6 +49,7 @@
 		barsBgColor = 'white',
 		iconColor = 'white',
 		borderRadius = '8px',
+		buttonBorderRadius = '50%',
 		loop = false,
 		autoplay = false,
 		skipSeconds = 5,
@@ -86,6 +88,7 @@
 		{barsBgColor}
 		{iconColor}
 		{borderRadius}
+		{buttonBorderRadius}
 		{loop}
 		{autoplay}
 		{skipSeconds}

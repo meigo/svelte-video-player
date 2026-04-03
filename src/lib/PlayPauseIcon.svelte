@@ -1,39 +1,36 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 
 	interface Props {
-		size?: string;
-		filled?: boolean;
 		paused?: boolean;
 	}
 
-	let { size = '100%', filled = false, paused = true }: Props = $props();
+	let { paused = true }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 </script>
 
-<div class="play-pause-icon" style="width:{size};">
-	<svg viewBox="0 0 100 100" width="100%" stroke-linecap="round" stroke-linejoin="round">
-		<path
-			visibility={!paused ? 'visible' : 'hidden'}
-			d="M40 29v42M60 29v42"
-			stroke={cfg.iconColor}
-			stroke-width="5"
-		/>
-		<path
-			visibility={paused ? 'visible' : 'hidden'}
-			d="M40 29v42l26-21-26-21z"
-			fill={filled ? cfg.iconColor : 'none'}
-			stroke={cfg.iconColor}
-			stroke-width="5"
-		/>
-	</svg>
-</div>
+<svg
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke={cfg.iconColor}
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	stroke-width="2"
+>
+	<g visibility={!paused ? 'visible' : 'hidden'}>
+		<rect width="5" height="18" x="14" y="3" rx="1" />
+		<rect width="5" height="18" x="5" y="3" rx="1" />
+	</g>
+	<g visibility={paused ? 'visible' : 'hidden'}>
+		<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
+	</g>
+</svg>
 
 <style>
-	.play-pause-icon {
-		position: relative;
+	svg {
+		width: 100%;
 		height: 100%;
+		display: block;
 	}
 </style>

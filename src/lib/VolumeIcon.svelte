@@ -1,40 +1,39 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 
 	interface Props {
-		size?: string;
-		filled?: boolean;
 		muted?: boolean;
 	}
 
-	let { size = '100%', filled = true, muted = false }: Props = $props();
+	let { muted = false }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 </script>
 
-<div class="volume-icon" style="width:{size};">
-	<svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
-		<g fill="none" stroke={cfg.iconColor} stroke-width="5">
-			<path
-				fill={filled ? cfg.iconColor : 'none'}
-				d="M33.913 38.955l14.58-11.046v44.918l-14.58-11.045H22.154V38.955h11.759z"
-			/>
-			<g visibility={!muted ? 'visible' : 'hidden'}>
-				<path d="M68.27 31.776c10.039 10.058 10.039 26.39 0 36.448" />
-				<path d="M61.062 38.986c6.067 6.079 6.067 15.949 0 22.028" />
-			</g>
-			<g visibility={muted ? 'visible' : 'hidden'}>
-				<path d="M59.644 41.173l17.621 17.658" />
-				<path d="M77.265 41.173L59.644 58.831" />
-			</g>
-		</g>
-	</svg>
-</div>
+<svg
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke={cfg.iconColor}
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	stroke-width="2"
+>
+	<g visibility={!muted ? 'visible' : 'hidden'}>
+		<path
+			d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298zM16 9a5 5 0 0 1 0 6M19.364 18.364a9 9 0 0 0 0-12.728"
+		/>
+	</g>
+	<g visibility={muted ? 'visible' : 'hidden'}>
+		<path
+			d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298zM22 9l-6 6M16 9l6 6"
+		/>
+	</g>
+</svg>
 
 <style>
-	.volume-icon {
-		position: relative;
+	svg {
+		width: 100%;
 		height: 100%;
+		display: block;
 	}
 </style>

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getPlayerConfig } from './context.js';
 	import type { Snippet } from 'svelte';
-	import type { PlayerConfig } from './types.js';
 
 	interface Props {
 		hidden: boolean;
@@ -11,7 +10,7 @@
 
 	let { hidden, isPointerOver = $bindable(false), children }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 
 	let lastFocusElement: Element | null = $state(null);
 	let wasTabDown = $state(false);

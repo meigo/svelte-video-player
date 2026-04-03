@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 
 	interface Props {
 		positionValue?: number;
@@ -9,7 +8,7 @@
 
 	let { positionValue = 0, active = false }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 
 	let tx = $derived(positionValue * 100);
 </script>

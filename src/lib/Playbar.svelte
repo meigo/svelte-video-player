@@ -1,7 +1,7 @@
 <script lang="ts">
 	import throttle from './libs/throttle.js';
-	import { getContext } from 'svelte';
-	import type { PlayerConfig, Chapter } from './types.js';
+	import { getPlayerConfig } from './context.js';
+	import type { Chapter } from './types.js';
 	import { formatTime } from './utils.js';
 
 	import Bar from './Bar.svelte';
@@ -29,7 +29,7 @@
 		onpointerup
 	}: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 
 	let playbarElement: HTMLDivElement;
 	let isPointerDown = $state(false);
@@ -202,8 +202,7 @@
 	}
 
 	.tooltip-text {
-		font-family: 'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono',
-			monospace;
+		font-family: 'Lucida Console', monospace;
 		font-size: 0.75rem;
 		line-height: 1rem;
 		color: white;

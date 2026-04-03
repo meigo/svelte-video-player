@@ -1,12 +1,6 @@
 <script lang="ts">
 	import { getPlayerConfig } from './context.js';
 
-	interface Props {
-		isPip?: boolean;
-	}
-
-	let { isPip = false }: Props = $props();
-
 	const cfg = getPlayerConfig();
 </script>
 
@@ -18,8 +12,10 @@
 	stroke-linejoin="round"
 	stroke-width="2"
 >
-	<path d="M21 9V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h4" />
-	<rect width="10" height="7" x="12" y="13" rx="2" />
+	<path
+		d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16"
+	/>
+	<circle cx="12" cy="12" r="4" />
 </svg>
 
 <style>

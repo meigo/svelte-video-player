@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getPlayerConfig } from './context.js';
 	import { fade } from 'svelte/transition';
-	import type { PlayerConfig } from './types.js';
 	import PlayPauseIcon from './PlayPauseIcon.svelte';
 
 	interface Props {
@@ -10,7 +9,7 @@
 
 	let { hidden = false }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 </script>
 
 {#if !hidden}
@@ -32,5 +31,6 @@
 		border-style: none;
 		border-radius: 9999px;
 		border-width: 2px;
+		padding: 20%;
 	}
 </style>

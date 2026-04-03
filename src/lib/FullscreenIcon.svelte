@@ -1,39 +1,39 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 
 	interface Props {
-		size?: string;
 		isFullscreen?: boolean;
 	}
 
-	let { size = '100%', isFullscreen = false }: Props = $props();
+	let { isFullscreen = false }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 </script>
 
-<div class="fullscreen-icon" style="width:{size};">
-	<svg viewBox="0 0 100 100" stroke-linecap="round" stroke-linejoin="round">
-		<g fill="none" stroke={cfg.iconColor} stroke-width="5">
-			<g visibility={!isFullscreen ? 'visible' : 'hidden'}>
-				<path d="M71 60.5V71H60" />
-				<path d="M40 71H29V60.5" />
-				<path d="M29 40.5V29h11" />
-				<path d="M60 29h11v11.5" />
-			</g>
-			<g visibility={isFullscreen ? 'visible' : 'hidden'}>
-				<path d="M60 71V60.5h11" />
-				<path d="M29 60.5h11V71" />
-				<path d="M40 29v11.5H29" />
-				<path d="M71 40.5H60V29" />
-			</g>
-		</g>
-	</svg>
-</div>
+<svg
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke={cfg.iconColor}
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	stroke-width="2.2"
+>
+	<g visibility={!isFullscreen ? 'visible' : 'hidden'}>
+		<path
+			d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"
+		/>
+	</g>
+	<g visibility={isFullscreen ? 'visible' : 'hidden'}>
+		<path
+			d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"
+		/>
+	</g>
+</svg>
 
 <style>
-	.fullscreen-icon {
-		position: relative;
+	svg {
+		width: 100%;
 		height: 100%;
+		display: block;
 	}
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 
 	import PlayIconCenter from './PlayIconCenter.svelte';
 	import Spinner from './Spinner.svelte';
@@ -15,7 +14,7 @@
 
 	let offsetWidth = $state(0);
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 </script>
 
 <div

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { PlayerConfig } from './types.js';
+	import { getPlayerConfig } from './context.js';
 	import Thumb from './Thumb.svelte';
 	import Bar from './Bar.svelte';
 
@@ -22,7 +21,7 @@
 	let isPointerDown = $state(false);
 	let rect: DOMRect;
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 
 	function onPointerDown(e: PointerEvent) {
 		e.preventDefault();

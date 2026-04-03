@@ -1,35 +1,41 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getPlayerConfig } from './context.js';
 	import type { Snippet } from 'svelte';
-	import type { PlayerConfig } from './types.js';
 
 	interface Props {
-		round?: boolean;
 		'aria-label'?: string;
 		onpointerup?: () => void;
 		children?: Snippet;
 	}
 
-	let { round = false, 'aria-label': ariaLabel, onpointerup, children }: Props = $props();
+	let { 'aria-label': ariaLabel, onpointerup, children }: Props = $props();
 
-	const cfg = getContext<PlayerConfig>('config');
+	const cfg = getPlayerConfig();
 
 	let offsetHeight = $state(0);
 
 	function onPointerDown(e: PointerEvent) {
 		e.preventDefault();
 	}
+
+	function onKeyDown(e: KeyboardEvent) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onpointerup?.();
+		}
+	}
 </script>
 
 <button
 	type="button"
 	class="button"
-	style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{cfg.color}; border-color:{cfg.focusColor}; border-radius:{round ? '9999px' : '10px'};"
+	style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{cfg.color}; border-color:{cfg.focusColor}; border-radius:{cfg.buttonBorderRadius};"
 	aria-label={ariaLabel}
 	title={ariaLabel}
 	bind:offsetHeight
 	onpointerdown={onPointerDown}
 	{onpointerup}
+	onkeydown={onKeyDown}
 >
 	{#if children}
 		{@render children()}
@@ -43,10 +49,10 @@
 		height: 100%;
 		border-style: none;
 		border-radius: 10px;
-		border-width: 2px;
+		border-width: 3px;
 		outline: none;
 		cursor: pointer;
-		padding: 0;
+		padding: 8px;
 		background: none;
 		display: flex;
 		align-items: center;
@@ -55,6 +61,14 @@
 	}
 
 	@media (hover: hover) and (pointer: fine) {
+		.button:hover::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background-color: rgba(255, 255, 255, 0.1);
+			border-radius: inherit;
+		}
+
 		.button:focus-visible {
 			border-style: solid;
 		}

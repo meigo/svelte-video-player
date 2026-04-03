@@ -21,7 +21,7 @@
 	const dashSource: string = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
 
 	let controlsHeight = $state(60);
-	let trackHeight = $state(6);
+	let trackHeight = $state(4);
 	let thumbSize = $state(15);
 	let centerIconSize = $state(60);
 	let color = $state('#FF3E00');
@@ -33,6 +33,7 @@
 	let autoplay = $state(false);
 	let playsinline = $state(true);
 	let borderRadius = $state(8);
+	let buttonBorderRadius = $state(50);
 	let skipSeconds = $state(10);
 	let controlsOnPause = $state(true);
 	let timeDisplay = $state(true);
@@ -73,6 +74,7 @@
 		trackHeight="{trackHeight}px"
 		centerIconSize="{centerIconSize}px"
 		borderRadius="{borderRadius}px"
+		buttonBorderRadius="{buttonBorderRadius}%"
 		{color}
 		{playerBgColor}
 		{barsBgColor}
@@ -86,6 +88,9 @@
 		{timeDisplay}
 		{remainingTime}
 		{playbackRateControl}
+		tracks={[
+			{ src: './sintel-en.vtt', srclang: 'en', label: 'English', default: true }
+		]}
 	/>
 
 	<div class="config-grid">
@@ -104,6 +109,10 @@
 		<label
 			><span>Border Radius</span>
 			<input type="range" min="0" max="25" bind:value={borderRadius} />
+		</label>
+		<label
+			><span>Button Radius</span>
+			<input type="range" min="0" max="50" bind:value={buttonBorderRadius} />
 		</label>
 		<label
 			><span>Skip Seconds</span>

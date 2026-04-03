@@ -10,6 +10,7 @@ export interface PlayerConfig {
 	iconColor: string;
 	loop: boolean;
 	borderRadius: string;
+	buttonBorderRadius: string;
 	controlsOnPause: boolean;
 	timeDisplay: boolean;
 }

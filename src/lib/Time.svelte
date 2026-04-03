@@ -35,18 +35,14 @@
 	.time {
 		position: relative;
 		height: 100%;
-		text-align: center;
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		align-items: center;
 		margin-right: 6px;
 	}
 	.text {
-		position: relative;
-		font-family: 'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono',
-			monospace;
+		font-family: 'Lucida Console', monospace;
 		font-size: 1rem;
-		line-height: 1rem;
+		line-height: 1;
 		color: white;
 	}
 </style>

@@ -9,9 +9,9 @@
 </script>
 
 <script lang="ts">
-	import { setContext } from 'svelte';
 	import { uid, preloadImage, prepareVideoSources } from './utils.js';
 	import { createAdapter } from './adapters/index.js';
+	import { setPlayerConfig } from './context.js';
 	import type { PlayerConfig, MediaSessionConfig, TextTrackConfig, Chapter, SourceAdapter } from './types.js';
 
 	import Poster from './Poster.svelte';
@@ -20,18 +20,15 @@
 	import BottomControls from './BottomControls.svelte';
 	import Playbar from './Playbar.svelte';
 	import PlayPauseButton from './PlayPauseButton.svelte';
-	import VolumeButton from './VolumeButton.svelte';
 	import VolumeControl from './VolumeControl.svelte';
-	import PlaybackRateButton from './PlaybackRateButton.svelte';
-	import PipButton from './PipButton.svelte';
 	import PipManager from './PipManager.svelte';
 	import FullscreenButton from './FullscreenButton.svelte';
 	import FullscreenManager from './FullscreenManager.svelte';
 	import MediaSessionManager from './MediaSessionManager.svelte';
 	import IdleDetector from './IdleDetector.svelte';
 	import ScrollDetector from './ScrollDetector.svelte';
+	import SettingsMenu from './SettingsMenu.svelte';
 	import CaptionButton from './CaptionButton.svelte';
-	import QualityButton from './QualityButton.svelte';
 	import Spinner from './Spinner.svelte';
 	import Time from './Time.svelte';
 
@@ -50,6 +47,7 @@
 		barsBgColor: string;
 		iconColor: string;
 		borderRadius: string;
+		buttonBorderRadius: string;
 		loop: boolean;
 		autoplay: boolean;
 		skipSeconds: number | string;
@@ -81,6 +79,7 @@
 		barsBgColor,
 		iconColor,
 		borderRadius,
+		buttonBorderRadius,
 		loop,
 		autoplay,
 		skipSeconds,
@@ -128,10 +127,11 @@
 		get iconColor() { return iconColor; },
 		get loop() { return loop; },
 		get borderRadius() { return borderRadius; },
+		get buttonBorderRadius() { return buttonBorderRadius; },
 		get controlsOnPause() { return controlsOnPause; },
 		get timeDisplay() { return timeDisplay; }
 	};
-	setContext<PlayerConfig>('config', config);
+	setPlayerConfig(config);
 
 	// Video element bindings
 	let videoPlayerElement = $state<HTMLDivElement>();
@@ -349,17 +349,28 @@
 		}
 	}
 
-	function onPlaybackRateButtonPointerUp() {
-		const idx = PLAYBACK_RATES.indexOf(playbackRate);
-		playbackRate = PLAYBACK_RATES[(idx + 1) % PLAYBACK_RATES.length];
+	function onPlaybackRateChange(rate: number) {
+		playbackRate = rate;
 	}
 
 	function onQualitySelect(index: number) {
 		_adapter?.setLevel(index);
 	}
 
+	let lastActiveTrackIndex = 0;
+
+	function onCaptionToggle() {
+		if (activeTrackIndex >= 0) {
+			lastActiveTrackIndex = activeTrackIndex;
+			activeTrackIndex = -1;
+		} else {
+			activeTrackIndex = lastActiveTrackIndex;
+		}
+	}
+
 	function onCaptionSelect(index: number) {
 		activeTrackIndex = index;
+		if (index >= 0) lastActiveTrackIndex = index;
 	}
 
 	function onPipButtonPointerUp() {
@@ -489,20 +500,25 @@
 					{#if timeDisplay && !isCompact}
 						<Time {duration} {currentTime} remaining={remainingTime} />
 					{/if}
-					{#if playbackRateControl && !isCompact}
-						<PlaybackRateButton {playbackRate} onpointerup={onPlaybackRateButtonPointerUp} />
-					{/if}
-					<VolumeButton onpointerup={onVolumeButtonPointerUp} {muted} />
-					<VolumeControl bind:volume />
+					<VolumeControl bind:volume {muted} onmutetoggle={onVolumeButtonPointerUp} />
 					{#if tracks.length > 0}
-						<CaptionButton {tracks} {activeTrackIndex} onselect={onCaptionSelect} />
+						<CaptionButton active={activeTrackIndex >= 0} ontoggle={onCaptionToggle} />
 					{/if}
-					{#if _qualityLevels.length > 0}
-						<QualityButton levels={_qualityLevels} currentLevel={_currentQualityLevel} onselect={onQualitySelect} />
-					{/if}
-					{#if isPipEnabled && !isCompact}
-						<PipButton onpointerup={onPipButtonPointerUp} {isPip} />
-					{/if}
+					<SettingsMenu
+						{playbackRate}
+						playbackRates={PLAYBACK_RATES}
+						{playbackRateControl}
+						{tracks}
+						{activeTrackIndex}
+						qualityLevels={_qualityLevels}
+						currentQualityLevel={_currentQualityLevel}
+						{isPipEnabled}
+						{isPip}
+						onplaybackratechange={onPlaybackRateChange}
+						oncaptionselect={onCaptionSelect}
+						onqualityselect={onQualitySelect}
+						onpiptoggle={onPipButtonPointerUp}
+					/>
 					{#if isFullscreenEnabled}
 						<FullscreenButton onpointerup={onFullscreenButtonPointerUp} {isFullscreen} />
 					{/if}
