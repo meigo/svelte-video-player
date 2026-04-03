@@ -28,7 +28,17 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
+    "dashjs": "^4.0.0",
+    "hls.js": "^1.0.0",
     "svelte": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "hls.js": {
+      "optional": true
+    },
+    "dashjs": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.0",
@@ -36,10 +46,12 @@
     "@sveltejs/package": "^2.3.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@testing-library/svelte": "^5.0.0",
+    "dashjs": "^5.1.1",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-svelte": "^3.0.0",
     "globals": "^16.0.0",
+    "hls.js": "^1.6.15",
     "jsdom": "^26.0.0",
     "prettier": "^3.0.0",
     "prettier-plugin-svelte": "^3.0.0",

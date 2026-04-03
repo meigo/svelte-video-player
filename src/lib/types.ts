@@ -36,7 +36,7 @@ export interface QualityLevel {
 }
 
 export interface SourceAdapter {
-	attach(video: HTMLVideoElement, src: string): void;
+	attach(video: HTMLVideoElement, src: string): void | Promise<void>;
 	detach(): void;
 	destroy(): void;
 	readonly levels: QualityLevel[];

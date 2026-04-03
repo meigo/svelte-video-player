@@ -53,7 +53,6 @@ export class HlsAdapter implements SourceAdapter {
 		}
 
 		if (!this.Hls) {
-			// @ts-expect-error -- hls.js is an optional peer dependency
 			const mod = await import('hls.js');
 			this.Hls = (mod.default || mod) as unknown as HlsConstructor;
 		}

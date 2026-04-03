@@ -19,8 +19,16 @@ interface DashInstance {
 	off(event: string, callback: (...args: unknown[]) => void): void;
 }
 
+interface MediaPlayerFunction {
+	(): DashFactory;
+}
+
 interface DashFactory {
 	create(): DashInstance;
+}
+
+interface DashModule {
+	MediaPlayer: MediaPlayerFunction;
 }
 
 export class DashAdapter implements SourceAdapter {
@@ -42,9 +50,8 @@ export class DashAdapter implements SourceAdapter {
 		this.video = video;
 
 		if (!this.dashjs) {
-			// @ts-expect-error -- dashjs is an optional peer dependency
-			const mod = await import('dashjs');
-			this.dashjs = (mod.default || mod) as unknown as DashFactory;
+			const mod = await import('dashjs') as unknown as DashModule;
+			this.dashjs = mod.MediaPlayer();
 		}
 
 		this.dash = this.dashjs.create();

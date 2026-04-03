@@ -8,12 +8,17 @@
 		'https://media.w3.org/2010/05/sintel/trailer.webm'
 	];
 
-	// Tears of Steel - Blender Open Movie
-	const poster2: string = 'https://media.w3.org/2010/05/sintel/poster.png';
+	// W3C sample video
 	const source2: string = 'https://media.w3.org/2010/05/video/movie_300.mp4';
 
 	const posterKaka: string = './kaka_walk.jpg';
 	const sourceKaka: string[] = ['./kaka_walk.mp4'];
+
+	// HLS test stream (Apple)
+	const hlsSource: string = 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8';
+
+	// DASH test stream (Big Buck Bunny)
+	const dashSource: string = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
 
 	let controlsHeight = $state(60);
 	let trackHeight = $state(6);
@@ -138,8 +143,7 @@
 
 	<VideoPlayer
 		width="1920"
-		height="804"
-		poster={poster2}
+		height="1080"
 		source={source2}
 		{playerBgColor}
 		skipSeconds="3"
@@ -187,6 +191,23 @@
 		/>
 	</div>
 
+	<h2>HLS Stream</h2>
+	<p>Apple Advanced HLS test stream (uses hls.js).</p>
+	<VideoPlayer
+		width="1920"
+		height="1080"
+		source={hlsSource}
+		playerBgColor="black"
+	/>
+
+	<h2>DASH Stream</h2>
+	<p>Big Buck Bunny DASH test stream (uses dashjs).</p>
+	<VideoPlayer
+		width="1920"
+		height="1080"
+		source={dashSource}
+		playerBgColor="black"
+	/>
 </main>
 
 <style>

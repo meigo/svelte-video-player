@@ -11,7 +11,8 @@
 <script lang="ts">
 	import { setContext } from 'svelte';
 	import { uid, preloadImage, prepareVideoSources } from './utils.js';
-	import type { PlayerConfig, MediaSessionConfig, TextTrackConfig, Chapter } from './types.js';
+	import { createAdapter } from './adapters/index.js';
+	import type { PlayerConfig, MediaSessionConfig, TextTrackConfig, Chapter, SourceAdapter } from './types.js';
 
 	import Poster from './Poster.svelte';
 	import Controls from './Controls.svelte';
@@ -30,6 +31,7 @@
 	import IdleDetector from './IdleDetector.svelte';
 	import ScrollDetector from './ScrollDetector.svelte';
 	import CaptionButton from './CaptionButton.svelte';
+	import QualityButton from './QualityButton.svelte';
 	import Spinner from './Spinner.svelte';
 	import Time from './Time.svelte';
 
@@ -54,7 +56,7 @@
 		preload: '' | 'none' | 'metadata' | 'auto';
 		crossorigin?: '' | 'anonymous' | 'use-credentials';
 		playsinline: boolean;
-		aspectRatio: number;
+		aspectRatio: number; // initial aspect ratio from width/height props
 		controlsOnPause: boolean;
 		timeDisplay: boolean;
 		remainingTime: boolean;
@@ -97,6 +99,21 @@
 
 	let _sources = $derived(prepareVideoSources(source));
 	let _skipSeconds = $derived(parseFloat(String(skipSeconds)));
+	let _aspectRatio = $state(0);
+
+	// Update aspect ratio from prop when video hasn't loaded yet
+	$effect(() => {
+		if (!isVideoData) _aspectRatio = aspectRatio;
+	});
+
+	// Source adapter for HLS/DASH
+	let _adapter: SourceAdapter | null = $state(null);
+	let _useAdapter = $derived(
+		_sources.length > 0 &&
+		(_sources[0].type === 'application/x-mpegURL' || _sources[0].type === 'application/dash+xml')
+	);
+	let _qualityLevels = $derived((_adapter as SourceAdapter | null)?.levels ?? []);
+	let _currentQualityLevel = $derived((_adapter as SourceAdapter | null)?.currentLevel ?? -1);
 
 	// Reactive config context using getters so children see updates
 	const config: PlayerConfig = {
@@ -131,6 +148,31 @@
 	const PLAYBACK_RATES = [0.5, 1, 1.5, 2];
 
 	let muted = $derived(volume === 0);
+
+	// Adapter lifecycle: create when source needs adapter, destroy on change
+	$effect(() => {
+		if (!videoElement || !_useAdapter) return;
+		const src = _sources[0].src;
+		const mimeType = _sources[0].type;
+
+		let destroyed = false;
+		let adapter: SourceAdapter | null = null;
+
+		createAdapter(mimeType).then((a) => {
+			if (destroyed) { a.destroy(); return; }
+			adapter = a;
+			_adapter = a;
+			a.attach(videoElement!, src);
+		});
+
+		return () => {
+			destroyed = true;
+			if (adapter) {
+				adapter.destroy();
+				_adapter = null;
+			}
+		};
+	});
 
 	$effect(() => {
 		if (ended) {
@@ -203,9 +245,12 @@
 	// Event handlers
 	function onVideoLoadedData() {
 		isVideoData = true;
-		// Detect audio-only content
-		if (videoElement && videoElement.videoWidth === 0) {
-			isAudioOnly = true;
+		if (videoElement) {
+			if (videoElement.videoWidth === 0) {
+				isAudioOnly = true;
+			} else {
+				_aspectRatio = videoElement.videoHeight / videoElement.videoWidth;
+			}
 		}
 	}
 
@@ -309,6 +354,10 @@
 		playbackRate = PLAYBACK_RATES[(idx + 1) % PLAYBACK_RATES.length];
 	}
 
+	function onQualitySelect(index: number) {
+		_adapter?.setLevel(index);
+	}
+
 	function onCaptionSelect(index: number) {
 		activeTrackIndex = index;
 	}
@@ -373,7 +422,7 @@
 	class="aspect"
 	role="region"
 	aria-label="Video player"
-	style="padding-top:{aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}"
+	style="padding-top:{_aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}"
 >
 	{#await preloadImage(poster)}
 		<div>
@@ -415,9 +464,11 @@
 				{#each tracks as track (track.src)}
 					<track kind="captions" src={track.src} srclang={track.srclang} label={track.label} />
 				{/each}
-				{#each _sources as { src, type } (src)}
-					<source {src} {type} />
-				{/each}
+				{#if !_useAdapter}
+					{#each _sources as { src, type } (src)}
+						<source {src} {type} />
+					{/each}
+				{/if}
 			</video>
 
 			{#if poster && isPosterVisible}
@@ -445,6 +496,9 @@
 					<VolumeControl bind:volume />
 					{#if tracks.length > 0}
 						<CaptionButton {tracks} {activeTrackIndex} onselect={onCaptionSelect} />
+					{/if}
+					{#if _qualityLevels.length > 0}
+						<QualityButton levels={_qualityLevels} currentLevel={_currentQualityLevel} onselect={onQualitySelect} />
 					{/if}
 					{#if isPipEnabled && !isCompact}
 						<PipButton onpointerup={onPipButtonPointerUp} {isPip} />
