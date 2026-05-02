@@ -40,6 +40,7 @@
 	let timeDisplay = $state(true);
 	let remainingTime = $state(false);
 	let playbackRateControl = $state(true);
+	let currentTime = $state(0);
 </script>
 
 <main>
@@ -95,6 +96,7 @@
 			{timeDisplay}
 			{remainingTime}
 			{playbackRateControl}
+			bind:currentTime
 			tracks={[
 				{
 					src: 'https://files.vidstack.io/sprite-fight/subs/english.vtt',
@@ -169,6 +171,7 @@
 			<label><span>Icon Color</span><input type="color" bind:value={iconColor} /></label>
 			<label><span>Focus Color</span><input type="color" bind:value={focusColor} /></label>
 			<label><span>Border Color</span><input type="color" bind:value={borderColor} /></label>
+			<label><span>Current Time</span><input type="number" bind:value={currentTime} /></label>
 		</div>
 	</section>
 
@@ -425,6 +428,15 @@
 	input[type='checkbox'] {
 		accent-color: #ff3e00;
 		transform: scale(1.1);
+	}
+
+	input[type='number'] {
+		width: 40px;
+		background-color: #1a1a1a;
+		border: 1px solid #333;
+		border-radius: 3px;
+		color: #c0c0c0;
+		padding: 2px 5px;
 	}
 
 	.video-player-inline {

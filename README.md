@@ -140,6 +140,7 @@ Integrate with the browser's Media Session API for OS-level media controls:
 | `tracks` | `TextTrackConfig[]` | `[]` | Subtitle/caption tracks |
 | `chapters` | `Chapter[]` | `[]` | Chapter markers on the progress bar |
 | `mediaSession` | `MediaSessionConfig` | `undefined` | Media Session API metadata |
+| `currentTime` | `number` (bindable) | `0` | Two-way bound to the video's `currentTime`. Use `bind:currentTime` to read/seek. |
 
 ### Styling props
 

@@ -13,6 +13,7 @@ export interface PlayerConfig {
 	buttonBorderRadius: string;
 	controlsOnPause: boolean;
 	timeDisplay: boolean;
+	currentTime: number;
 }
 
 export interface MediaSessionConfig {
