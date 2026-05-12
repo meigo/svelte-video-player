@@ -63,6 +63,7 @@
 		chapters: Chapter[];
 		mediaSession?: MediaSessionConfig;
 		tracks: TextTrackConfig[];
+		currentTime?: number;
 	}
 
 	let {
@@ -95,7 +96,8 @@
 		playbackRateControl,
 		chapters,
 		mediaSession,
-		tracks
+		tracks,
+		currentTime = $bindable(0)
 	}: Props = $props();
 
 	let _sources = $derived(prepareVideoSources(source));
@@ -139,7 +141,6 @@
 	// Video element bindings
 	let videoPlayerElement = $state<HTMLDivElement>();
 	let videoElement = $state<HTMLVideoElement>();
-	let currentTime = $state(0);
 	let duration = $state(0);
 	let seeking = $state(false);
 	let ended = $state(false);

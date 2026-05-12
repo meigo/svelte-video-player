@@ -33,6 +33,7 @@
 		chapters?: Chapter[];
 		mediaSession?: MediaSessionConfig;
 		tracks?: TextTrackConfig[];
+		currentTime?: number;
 	}
 
 	let {
@@ -64,7 +65,8 @@
 		playbackRateControl = true,
 		chapters = [],
 		mediaSession = undefined,
-		tracks = []
+		tracks = [],
+		currentTime = $bindable(0)
 	}: Props = $props();
 
 	const isClient = typeof window !== 'undefined';
@@ -106,6 +108,7 @@
 		{chapters}
 		{mediaSession}
 		{tracks}
+		bind:currentTime
 	/>
 {:else}
 	<VideoPlayerServer {playerBgColor} {borderRadius} {aspectRatio} />
