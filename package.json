@@ -1,6 +1,6 @@
 {
   "name": "svelte-video-player",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Meigo Kukk",
   "repository": "meigo/svelte-video-player",
   "description": "Video player component for Svelte.",
